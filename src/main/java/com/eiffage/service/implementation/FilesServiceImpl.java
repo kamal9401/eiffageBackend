@@ -34,7 +34,6 @@ public class FilesServiceImpl implements FilesService{
 	}
 
 	private void downloadFromServer(Long id) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -45,7 +44,6 @@ public class FilesServiceImpl implements FilesService{
 	}
 
 	private void copyFileToServer(String path) {
-		// TODO Auto-generated method stub
 		
 	}
 

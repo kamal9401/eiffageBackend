@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 		
 		@ManyToOne
 		private Tasks task;
+
 		public Comments(Long id, String message, Users reporter, LocalDateTime timeStamp, Tasks task) {
 			super();
 			this.id = id;

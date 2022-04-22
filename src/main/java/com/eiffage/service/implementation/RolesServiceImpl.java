@@ -30,7 +30,7 @@ public class RolesServiceImpl implements RolesService{
 	
 	@Override
 	public Page<Roles> list() {
-		return roleRepo.findAll(PageRequest.ofSize(0));
+		return roleRepo.findAll(PageRequest.ofSize(1));
 	}
 
 	@Override
