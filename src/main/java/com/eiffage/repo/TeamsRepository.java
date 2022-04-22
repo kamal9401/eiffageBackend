@@ -6,5 +6,4 @@ import com.eiffage.model.Teams;
 
 public interface TeamsRepository extends JpaRepository<Teams, Long> {
 	public Teams findByName(String name);
-	public Teams findByIdChefChantier(Long idChefChantier);
 }

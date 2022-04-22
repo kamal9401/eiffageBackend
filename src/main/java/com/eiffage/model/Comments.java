@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 	@Entity  
 	public class Comments {
@@ -12,7 +13,11 @@ import javax.persistence.Id;
 		private Long id; 
 		private String message;
 		private LocalDateTime timeStamp;
+		
+		@ManyToOne
 		private Users reporter;
+		
+		@ManyToOne
 		private Tasks task;
 		public Comments(Long id, String message, Users reporter, LocalDateTime timeStamp, Tasks task) {
 			super();

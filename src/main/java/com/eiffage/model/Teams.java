@@ -9,22 +9,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Teams {
 	@Id
 	private Long id;
 	private String name;
-	private Users chefChantier;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinTable(name="TEAMS_USERS")
 	private List<Users> users;
 	
-	public Teams(Long id, String name, Users chefChantier, List<Users> user) {
+	public Teams(Long id, String name, List<Users> user) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.chefChantier = chefChantier;
 		if(this.users == null) {
 			this.users = new ArrayList<Users>();
 		}
@@ -47,14 +49,6 @@ public class Teams {
 		this.name = name;
 	}
 
-	public Users getChefChantier() {
-		return chefChantier;
-	}
-
-	public void setChefChantier(Users chefChantier) {
-		this.chefChantier = chefChantier;
-	}
-
 	public List<Users> getUser() {
 		return users;
 	}
@@ -69,7 +63,7 @@ public class Teams {
 
 	@Override
 	public String toString() {
-		return "Teams [id=" + id + ", name=" + name + ", chefChantier=" + chefChantier 
+		return "Teams [id=" + id + ", name=" + name 
 				+ ", user=" + users + "]";
 	}
 	

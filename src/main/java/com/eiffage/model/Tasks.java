@@ -8,6 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.eiffage.model.enumeration.Status;
 
 @Entity
@@ -21,13 +25,14 @@ public class Tasks {
 	private String description;
 	private Status status;
 
-	@ManyToOne
+	@ManyToOne(targetEntity=Users.class)
 	private Users assignTo;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity=Users.class)
 	private Users reporter;
-	
+
 	@OneToMany
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Comments> comments;
 
 	public Tasks(Long id, String title, String taskNumber, String description, Status status, Users assignTo,
