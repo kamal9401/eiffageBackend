@@ -14,10 +14,10 @@ import javax.persistence.ManyToOne;
 		private String message;
 		private LocalDateTime timeStamp;
 		
-		@ManyToOne
+		@ManyToOne(targetEntity=Users.class)
 		private Users reporter;
 		
-		@ManyToOne
+		@ManyToOne(targetEntity=Tasks.class)
 		private Tasks task;
 
 		public Comments(Long id, String message, Users reporter, LocalDateTime timeStamp, Tasks task) {

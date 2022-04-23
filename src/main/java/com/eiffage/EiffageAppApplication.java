@@ -25,11 +25,11 @@ public class EiffageAppApplication {
 		Roles r3 = roleRepo.save(new Roles(Permissions.OUVRIER+"", "admin de l'app"));
 		Roles r4 = roleRepo.save(new Roles("ADMIN", "admin de l'app"));
 		
-		userRepo.save(new Users("a@gmail.com","CIN1",r1));
-		userRepo.save(new Users("b@gmail.com","CIN2",r2));
-		userRepo.save(new Users("c@gmail.com","CIN3",r3));
-		userRepo.save(new Users("d@gmail.com","CIN4",r4));
-	
+//		userRepo.save(new Users("a@gmail.com","CIN1",r1));
+//		userRepo.save(new Users("b@gmail.com","CIN2",r2));
+//		userRepo.save(new Users("c@gmail.com","CIN3",r3));
+//		userRepo.save(new Users("d@gmail.com","CIN4",r4));
+//	
 		List<Roles> roles = roleRepo.findAll();
 		List<Users> users = userRepo.findAll();
 		

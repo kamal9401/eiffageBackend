@@ -1,16 +1,12 @@
 package com.eiffage.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import com.eiffage.model.enumeration.Status;
 
 @Entity
@@ -22,25 +18,26 @@ public class Projects {
 	private LocalDateTime timeStamp;
 	private Status status;
 
-	@OneToOne
-	private Teams team;
+	@OneToMany
+	private List<Teams> teams;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "PROJECTS_TASKS")
+	@OneToMany
 	private List<Tasks> tasks;
 
-	public Projects(Long id, String description, Status status, String title, LocalDateTime timeStamp, Teams team,
-			List<Tasks> tasks) {
+	@ManyToOne(targetEntity=Users.class)
+	private Users chefChantier;
+
+	public Projects(Long id, String description, String title, LocalDateTime timeStamp, Status status,
+			List<Teams> teams, List<Tasks> tasks, Users chefChantier) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.status = status;
+		this.title = title;
 		this.timeStamp = timeStamp;
-		this.team = team;
-		if (this.tasks == null) {
-			this.tasks = new ArrayList<Tasks>();
-		}
-		this.tasks.addAll(tasks);
+		this.status = status;
+		this.teams = teams;
+		this.tasks = tasks;
+		this.chefChantier = chefChantier;
 	}
 
 	public Projects() {
@@ -63,28 +60,20 @@ public class Projects {
 		this.description = description;
 	}
 
-	public LocalDateTime getTimeStamp() {
-		return timeStamp;
-	}
-
-	public void setTimeStamp(LocalDateTime timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-
-	public void setTasks(List<Tasks> task) {
-		this.tasks = task;
-	}
-
-	public List<Tasks> getTasks() {
-		return tasks;
-	}
-
 	public String getTitle() {
 		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public LocalDateTime getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	public Status getStatus() {
@@ -95,18 +84,37 @@ public class Projects {
 		this.status = status;
 	}
 
-	public Teams getTeam() {
-		return team;
+	public List<Teams> getTeams() {
+		return teams;
 	}
 
-	public void setTeam(Teams team) {
-		this.team = team;
+	public void setTeams(List<Teams> teams) {
+		this.teams = teams;
+	}
+
+	public List<Tasks> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Tasks> tasks) {
+		this.tasks = tasks;
+	}
+
+	public Users getChefChantier() {
+		return chefChantier;
+	}
+
+	public void setChefChantier(Users chefChantier) {
+		this.chefChantier = chefChantier;
 	}
 
 	@Override
 	public String toString() {
-		return "Projects [id=" + id + ", Title=" + title + ", Description=" + description + ", Status=" + status
-				+ ", TimeStamp=" + timeStamp + ",team=" + team + "]";
+		return "Projects [id=" + id + ", description=" + description + ", title=" + title + ", timeStamp=" + timeStamp
+				+ ", status=" + status + ", teams=" + teams + ", tasks=" + tasks + ", chefChantier=" + chefChantier
+				+ "]";
 	}
-
+	
+	
+	
 }

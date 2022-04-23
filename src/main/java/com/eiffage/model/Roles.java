@@ -1,14 +1,21 @@
 package com.eiffage.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Table(name="roles")
 @Entity
 public class Roles {
-
+	
 	@Id
 	private String role;
 	private String description;
+
+	@OneToMany
+    private List<Users> users;
 
 	public Roles(String role, String description) {
 		super();
@@ -19,6 +26,14 @@ public class Roles {
 	public Roles() {
 		super();
 
+	}
+
+	public List<Users> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<Users> users) {
+		this.users = users;
 	}
 
 	public String getRole() {

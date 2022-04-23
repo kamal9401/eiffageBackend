@@ -1,36 +1,36 @@
 package com.eiffage.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+@Table(name = "teams")
 @Entity
 public class Teams {
 	@Id
 	private Long id;
 	private String name;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinTable(name="TEAMS_USERS")
+
+	@ManyToMany( fetch = FetchType.EAGER)
 	private List<Users> users;
 	
-	public Teams(Long id, String name, List<Users> user) {
+	@ManyToOne(targetEntity=Projects.class)
+	private Projects currentProject;
+
+	public Teams() {
+		super();
+	}
+
+	public Teams(Long id, String name, List<Users> users, Projects currentProject) {
 		super();
 		this.id = id;
 		this.name = name;
-		if(this.users == null) {
-			this.users = new ArrayList<Users>();
-		}
-		this.users.addAll(user);
+		this.users = users;
+		this.currentProject = currentProject;
 	}
 
 	public Long getId() {
@@ -49,23 +49,25 @@ public class Teams {
 		this.name = name;
 	}
 
-	public List<Users> getUser() {
+	public List<Users> getUsers() {
 		return users;
 	}
 
-	public void setUser(List<Users> user) {
-		this.users = user;
+	public void setUsers(List<Users> users) {
+		this.users = users;
 	}
 
-	public Teams() {
-		super();
+	public Projects getCurrentProject() {
+		return currentProject;
+	}
+
+	public void setCurrentProject(Projects currentProject) {
+		this.currentProject = currentProject;
 	}
 
 	@Override
 	public String toString() {
-		return "Teams [id=" + id + ", name=" + name 
-				+ ", user=" + users + "]";
+		return "Teams [id=" + id + ", name=" + name + ", users=" + users + ", currentProject=" + currentProject + "]";
 	}
-	
-	
+
 }

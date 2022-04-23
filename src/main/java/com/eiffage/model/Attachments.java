@@ -8,34 +8,49 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 	
 	@Entity
-	public class Files {
+	public class Attachments {
 
 		@Id @GeneratedValue
 		private Long id; 
 		
+		@ManyToOne(targetEntity=Tasks.class)
+		private Tasks task;
+
+		@ManyToOne(targetEntity=Users.class)
+		private Users uploadedBy;
+
 		private String title;
 		private String path;
 		private String icon;
-		
-		public Files(Long id, String title, String path, String icon, Tasks task) {
+		public Attachments(Long id, Tasks task, Users uploadedBy, String title, String path, String icon) {
 			super();
 			this.id = id;
+			this.task = task;
+			this.uploadedBy = uploadedBy;
 			this.title = title;
 			this.path = path;
 			this.icon = icon;
-			this.task = task;
 		}
-		@ManyToOne
-		private Tasks task;
-		public Files() {
+		public Attachments() {
 			super();
 		}
-		
 		public Long getId() {
 			return id;
 		}
 		public void setId(Long id) {
 			this.id = id;
+		}
+		public Tasks getTask() {
+			return task;
+		}
+		public void setTask(Tasks task) {
+			this.task = task;
+		}
+		public Users getUploadedBy() {
+			return uploadedBy;
+		}
+		public void setUploadedBy(Users uploadedBy) {
+			this.uploadedBy = uploadedBy;
 		}
 		public String getTitle() {
 			return title;
@@ -55,10 +70,11 @@ import javax.persistence.ManyToOne;
 		public void setIcon(String icon) {
 			this.icon = icon;
 		}
-		public Tasks getTask() {
-			return task;
+		@Override
+		public String toString() {
+			return "Attachments [id=" + id + ", task=" + task + ", uploadedBy=" + uploadedBy + ", title=" + title + ", path="
+					+ path + ", icon=" + icon + "]";
 		}
-		public void setTask(Tasks task) {
-			this.task = task;
-		}
+
+	
 	}

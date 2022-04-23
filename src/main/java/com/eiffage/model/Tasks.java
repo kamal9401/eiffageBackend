@@ -9,9 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import com.eiffage.model.enumeration.Status;
 
 @Entity
@@ -31,12 +28,17 @@ public class Tasks {
 	@ManyToOne(targetEntity=Users.class)
 	private Users reporter;
 
+	@ManyToOne(targetEntity=Projects.class)
+	private Projects project;
+
 	@OneToMany
-	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Comments> comments;
 
+	@OneToMany
+	private List<Attachments> attachments;
+
 	public Tasks(Long id, String title, String taskNumber, String description, Status status, Users assignTo,
-			Users reporter, List<Comments> comments) {
+			Users reporter, List<Comments> comments, List<Attachments> attachments) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -46,10 +48,12 @@ public class Tasks {
 		this.assignTo = assignTo;
 		this.reporter = reporter;
 		this.comments = comments;
+		this.attachments = attachments;
 	}
 
 	public Tasks() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -115,5 +119,21 @@ public class Tasks {
 	public void setComments(List<Comments> comments) {
 		this.comments = comments;
 	}
+
+	public List<Attachments> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<Attachments> attachments) {
+		this.attachments = attachments;
+	}
+
+	@Override
+	public String toString() {
+		return "Tasks [id=" + id + ", title=" + title + ", taskNumber=" + taskNumber + ", description=" + description
+				+ ", status=" + status + ", assignTo=" + assignTo + ", reporter=" + reporter + ", comments=" + comments
+				+ ", attachments=" + attachments + "]";
+	}
+
 	
 }

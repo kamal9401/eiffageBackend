@@ -2,9 +2,9 @@
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eiffage.model.Files;
+import com.eiffage.model.Attachments;
 
-public interface FilesRepository extends JpaRepository<Files, Long> {
-	public Files findByTitle(String Title);
-	public Files findByPath(String Path);
+public interface FilesRepository extends JpaRepository<Attachments, Long> {
+	public Attachments findByTitle(String Title);
+	public Attachments findByPath(String Path);
 }
