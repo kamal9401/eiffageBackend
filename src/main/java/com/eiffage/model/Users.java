@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.eiffage.model.enumeration.Roles;
 import com.eiffage.model.enumeration.Status;
 
 @Table(name = "users")
@@ -34,9 +35,7 @@ public class Users {
 	private String phone;
 	private boolean activated;
 	private Status status;
-	
-	@ManyToOne(targetEntity=Roles.class)
-    private Roles role;
+	private Roles role;
 	
 	@ManyToOne(targetEntity=Teams.class)
 	private Teams team;
@@ -56,13 +55,10 @@ public class Users {
 	@OneToMany
 	private List<Projects> projects;
 
-	public Users(Long idUser, @NotEmpty(message = "email cannot empty or null") String email, String firstName,
+	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName,
 			String lastName, String birthday, @NotEmpty(message = "email cannot empty or null") String cin,
-			String password, String photo, String phone, boolean activated, Status status, Roles role,
-			List<Tasks> tasksReported, List<Tasks> tasksAssigned, List<Comments> comments,
-			List<Attachments> attachments, List<Projects> projects) {
+			String password, String photo, String phone, boolean activated, Status status, Roles role) {
 		super();
-		this.idUser = idUser;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -74,11 +70,6 @@ public class Users {
 		this.activated = activated;
 		this.status = status;
 		this.role = role;
-		this.tasksReported = tasksReported;
-		this.tasksAssigned = tasksAssigned;
-		this.comments = comments;
-		this.attachments = attachments;
-		this.projects = projects;
 	}
 
 	public Users() {

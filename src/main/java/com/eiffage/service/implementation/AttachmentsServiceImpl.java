@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eiffage.model.Attachments;
-import com.eiffage.repo.FilesRepository;
-import com.eiffage.service.FilesService;
+import com.eiffage.repo.AttachmentsRepository;
+import com.eiffage.service.AttachmentsService;
 
 
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 @Slf4j
-public class FilesServiceImpl implements FilesService{
+public class AttachmentsServiceImpl implements AttachmentsService{
 
 	@Autowired
-	FilesRepository filesRepo;
+	AttachmentsRepository filesRepo;
 
 	@Override
 	public List<Attachments> list() {
@@ -48,9 +48,8 @@ public class FilesServiceImpl implements FilesService{
 	}
 
 	@Override
-	public boolean delete(Long id) {
+	public void delete(Long id) {
 		filesRepo.deleteById(id);
-		return true;
 	}
 
 }

@@ -37,23 +37,19 @@ public class Tasks {
 	@OneToMany
 	private List<Attachments> attachments;
 
-	public Tasks(Long id, String title, String taskNumber, String description, Status status, Users assignTo,
-			Users reporter, List<Comments> comments, List<Attachments> attachments) {
+	public Tasks(String title, String taskNumber, String description, Status status, Users assignTo,
+			Users reporter) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.taskNumber = taskNumber;
 		this.description = description;
 		this.status = status;
 		this.assignTo = assignTo;
 		this.reporter = reporter;
-		this.comments = comments;
-		this.attachments = attachments;
 	}
 
 	public Tasks() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {

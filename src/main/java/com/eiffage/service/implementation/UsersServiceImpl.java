@@ -34,8 +34,24 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public Users update(Users user) {
-		return usersRepo.save(null);
+	public Users update(Long id, Users user) {
+		Users myUser = usersRepo.findById(id).get();
+		myUser.setActivated(user.isActivated());
+		myUser.setAttachments(user.getAttachments());
+		myUser.setBirthday(user.getBirthday());
+		myUser.setCin(user.getCin());
+		myUser.setComments(user.getComments());
+		myUser.setEmail(user.getEmail());
+		myUser.setFirstName(user.getFirstName());
+		myUser.setLastName(user.getLastName());
+		myUser.setPhone(user.getPhone());
+		myUser.setPhoto(user.getPhoto());
+		myUser.setRole(user.getRole());
+		myUser.setStatus(user.getStatus());
+		myUser.setTasksAssigned(user.getTasksAssigned());
+		myUser.setTasksReported(user.getTasksReported());
+		return usersRepo.save(myUser);
+		
 	}
 
 	@Override

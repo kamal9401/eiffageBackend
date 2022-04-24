@@ -4,13 +4,14 @@ package com.eiffage.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 	
 	@Entity
 	public class Attachments {
 
-		@Id @GeneratedValue
+		@Id  @GeneratedValue(strategy = GenerationType.AUTO)
 		private Long id; 
 		
 		@ManyToOne(targetEntity=Tasks.class)
@@ -22,9 +23,8 @@ import javax.persistence.ManyToOne;
 		private String title;
 		private String path;
 		private String icon;
-		public Attachments(Long id, Tasks task, Users uploadedBy, String title, String path, String icon) {
+		public Attachments(Tasks task, Users uploadedBy, String title, String path, String icon) {
 			super();
-			this.id = id;
 			this.task = task;
 			this.uploadedBy = uploadedBy;
 			this.title = title;

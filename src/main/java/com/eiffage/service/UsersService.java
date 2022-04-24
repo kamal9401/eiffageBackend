@@ -7,7 +7,7 @@ import com.eiffage.model.enumeration.Status;
 public interface UsersService {
 	List<Users> list();
 	Users create(Users user);
-	Users update(Users user);
+	Users update(Long id, Users user);
 	Users get(Long id); 
 	Users changePassword(Long id, String oldPassword,String newPassword);
 	Users archiveUser(Long id);

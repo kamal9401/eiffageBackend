@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "teams")
 @Entity
 public class Teams {
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 
@@ -25,11 +27,9 @@ public class Teams {
 		super();
 	}
 
-	public Teams(Long id, String name, List<Users> users, Projects currentProject) {
+	public Teams(String name, Projects currentProject) {
 		super();
-		this.id = id;
 		this.name = name;
-		this.users = users;
 		this.currentProject = currentProject;
 	}
 

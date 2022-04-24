@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 	@Entity  
 	public class Comments {
-		@Id @GeneratedValue
+		@Id  @GeneratedValue(strategy = GenerationType.AUTO)
 		private Long id; 
 		private String message;
 		private LocalDateTime timeStamp;
@@ -20,9 +21,8 @@ import javax.persistence.ManyToOne;
 		@ManyToOne(targetEntity=Tasks.class)
 		private Tasks task;
 
-		public Comments(Long id, String message, Users reporter, LocalDateTime timeStamp, Tasks task) {
+		public Comments(String message, Users reporter, LocalDateTime timeStamp, Tasks task) {
 			super();
-			this.id = id;
 			this.message = message;
 			this.reporter = reporter;
 			this.timeStamp = timeStamp;

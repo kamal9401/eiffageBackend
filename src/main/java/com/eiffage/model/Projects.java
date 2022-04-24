@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -11,8 +13,8 @@ import com.eiffage.model.enumeration.Status;
 
 @Entity
 public class Projects {
-	@Id
-	private Long id;
+	@Id  @GeneratedValue(strategy = GenerationType.AUTO)
+ 	private Long id;
 	private String description;
 	private String title;
 	private LocalDateTime timeStamp;
@@ -27,16 +29,13 @@ public class Projects {
 	@ManyToOne(targetEntity=Users.class)
 	private Users chefChantier;
 
-	public Projects(Long id, String description, String title, LocalDateTime timeStamp, Status status,
-			List<Teams> teams, List<Tasks> tasks, Users chefChantier) {
+	public Projects(String description, String title, LocalDateTime timeStamp, Status status,
+			Users chefChantier) {
 		super();
-		this.id = id;
 		this.description = description;
 		this.title = title;
 		this.timeStamp = timeStamp;
 		this.status = status;
-		this.teams = teams;
-		this.tasks = tasks;
 		this.chefChantier = chefChantier;
 	}
 

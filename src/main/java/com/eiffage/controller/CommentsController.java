@@ -2,51 +2,59 @@ package com.eiffage.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.eiffage.model.Comments;
 import com.eiffage.service.CommentsService;
 
-@RequestMapping(value="/comments")
+@RestController
 public class CommentsController {
-	@Autowired
+
 	CommentsService service;
 
+	public CommentsController(CommentsService service) {
+		this.service = service;
+	}
 	
-	@RequestMapping(value="/list")
-	List<Comments> list() {
+	@GetMapping("/comments")
+	public List<Comments> list(){
 		return service.list();
 	}
-
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	Comments create(Comments comment) {
-		return service.create(comment);
+	
+	@PostMapping("/comments")
+	public Comments create(@RequestBody Comments comments){
+		return service.create(comments);
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.PUT)
-	Comments update(Comments comment) {
-		return service.update(comment);
+	@PutMapping("/comments/{id}")
+	public Comments update(@PathVariable Long id, @RequestBody Comments comment){
+		return service.update(id, comment);
 	}
 
-	@RequestMapping(value="/find/{id}")
-	Comments get(Long id) {
+	@DeleteMapping("/comments/{id}")
+	public void delete(@PathVariable Long id){
+		service.delete(id);
+	}
+
+	@GetMapping("/comments/{id}")
+	public Comments get(@PathVariable Long id) {
 		return service.get(id);
 	}
 
-	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
-	boolean delete(Long id) {
-		return service.delete(id);
-	}
-
-	@RequestMapping(value="/tasks/{id}")
-	List<Comments> getCommentByTask(Long idTask) {
+	@GetMapping("/comments/tasks/{idTasks}")
+	public List<Comments> getCommentByTask(@PathVariable Long idTask) {
 		return service.getCommentByTask(idTask);
 	}
 
-	@RequestMapping(value="/user/{id}")
-	List<Comments> getCommentByUser(Long idUser) {
+	@GetMapping("/comments/user/{idUser}")
+	public List<Comments> getCommentByUser(@PathVariable Long idUser) {
 		return service.getCommentByUser(idUser);
 	}
+
 }

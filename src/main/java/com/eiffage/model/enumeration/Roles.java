@@ -1,5 +1,5 @@
 package com.eiffage.model.enumeration;
 
-public enum Permissions {
+public enum Roles {
 	ADMIN, OUVRIER, CHEF_CHANTIER, CHEF_EQUIPE
 }

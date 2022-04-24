@@ -39,8 +39,18 @@ public class TasksServiceImpl implements TasksService{
 	}
 
 	@Override
-	public Tasks update(Tasks task) {
-		return tasksRepo.save(null);
+	public Tasks update(Long id, Tasks task) {
+		Tasks myTask = tasksRepo.findById(id).get();
+		myTask.setAssignTo(task.getAssignTo());
+		myTask.setAttachments(task.getAttachments());
+		myTask.setComments(task.getComments());
+		myTask.setDescription(task.getDescription());
+		myTask.setReporter(task.getReporter());
+		myTask.setStatus(task.getStatus());
+		myTask.setTaskNumber(task.getTaskNumber());
+		myTask.setTitle(task.getTitle());
+		
+		return tasksRepo.save(myTask);
 	}
 
 	@Override
@@ -49,9 +59,8 @@ public class TasksServiceImpl implements TasksService{
 	}
 
 	@Override
-	public boolean deleteTask(Long id) {
+	public void delete(Long id) {
 		tasksRepo.deleteById(id);
-		return true;
 	}
 
 	@Override
@@ -62,7 +71,7 @@ public class TasksServiceImpl implements TasksService{
 	}
 
 	@Override
-	public Tasks AssignTaskToUser(Long idTask, Long idUser) {
+	public Tasks assignTaskToUser(Long idTask, Long idUser) {
 		Tasks task  = tasksRepo.findById(idTask).get();
 		Users user  = userRepo.findById(idUser).get();
 		task.setAssignTo(user);

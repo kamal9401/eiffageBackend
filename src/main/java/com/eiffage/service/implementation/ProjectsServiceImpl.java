@@ -36,8 +36,18 @@ public class ProjectsServiceImpl implements ProjectsService{
 	}
 
 	@Override
-	public Projects update(Projects project) {
-		return projectsRepo.save(null);
+	public Projects update(Long id, Projects project) {
+		Projects myProject = projectsRepo.findById(id).get();
+		myProject.setChefChantier(project.getChefChantier());
+		myProject.setDescription(project.getDescription());
+		myProject.setStatus(project.getStatus());
+		myProject.setTasks(project.getTasks());
+		myProject.setTeams(project.getTeams());
+		myProject.setTeams(project.getTeams());
+		myProject.setTimeStamp(project.getTimeStamp());
+		myProject.setTitle(project.getTitle());
+		
+		return projectsRepo.save(myProject);
 	}
 
 	@Override
@@ -46,9 +56,8 @@ public class ProjectsServiceImpl implements ProjectsService{
 	}
 
 	@Override
-	public boolean delete(Long id) {
+	public void delete(Long id) {
 		projectsRepo.deleteById(id);
-		return true;
 	}
 
 	@Override
