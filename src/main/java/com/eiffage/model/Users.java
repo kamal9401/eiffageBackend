@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Users {
 	private Status status;
 	private Roles role;
 	
-	@ManyToOne(targetEntity=Teams.class)
+	@ManyToOne( fetch = FetchType.EAGER)
 	private Teams team;
 	
 	@OneToMany
@@ -57,7 +58,8 @@ public class Users {
 
 	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName,
 			String lastName, String birthday, @NotEmpty(message = "email cannot empty or null") String cin,
-			String password, String photo, String phone, boolean activated, Status status, Roles role) {
+			String password, String photo, String phone, boolean activated, 
+			Status status, Roles role) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -74,7 +76,6 @@ public class Users {
 
 	public Users() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getIdUser() {
@@ -213,13 +214,20 @@ public class Users {
 		this.projects = projects;
 	}
 
-	
+	public Teams getTeam() {
+		return team;
+	}
+
+	public void setTeam(Teams team) {
+		this.team = team;
+	}
+
 	@Override
 	public String toString() {
 		return "Users [idUser=" + idUser + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", birthday=" + birthday + ", cin=" + cin + ", password=" + password + ", photo=" + photo + ", phone="
 				+ phone + ", activated=" + activated + ", status=" + status + ", role=" + role + ", tasksReported="
 				+ tasksReported + ", tasksAssigned=" + tasksAssigned + ", comments=" + comments + ", attachments="
-				+ attachments + ", projects=" + projects + "]";
+				+ attachments + ", projects=" + projects +", team=" + team + "]";
 	}
 }

@@ -38,7 +38,7 @@ public class Tasks {
 	private List<Attachments> attachments;
 
 	public Tasks(String title, String taskNumber, String description, Status status, Users assignTo,
-			Users reporter) {
+			Users reporter, Projects project) {
 		super();
 		this.title = title;
 		this.taskNumber = taskNumber;
@@ -46,6 +46,7 @@ public class Tasks {
 		this.status = status;
 		this.assignTo = assignTo;
 		this.reporter = reporter;
+		this.project = project;
 	}
 
 	public Tasks() {
@@ -128,8 +129,6 @@ public class Tasks {
 	public String toString() {
 		return "Tasks [id=" + id + ", title=" + title + ", taskNumber=" + taskNumber + ", description=" + description
 				+ ", status=" + status + ", assignTo=" + assignTo + ", reporter=" + reporter + ", comments=" + comments
-				+ ", attachments=" + attachments + "]";
+				+ ", attachments=" + attachments + ", project="+project+"]";
 	}
-
-	
 }

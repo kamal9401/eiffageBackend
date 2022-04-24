@@ -4,12 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import com.eiffage.service.*;
 import com.eiffage.model.*;
 import com.eiffage.model.enumeration.*;
 import com.eiffage.repo.*;
@@ -33,13 +29,12 @@ public class DataInitilizer {
 		usersRepository = ctx.getBean(UsersRepository.class);;
 	}
 
-
 	List<Users> users = new ArrayList<Users>();
 	List<Projects> projects = new ArrayList<Projects>();
 	List<Teams> teams = new ArrayList<Teams>();
 	List<Tasks> tasks = new ArrayList<Tasks>();
 	List<Comments> comments= new ArrayList<Comments>();
-	List<Attachments> attchments = new ArrayList<Attachments>();
+	List<Attachments> attachments = new ArrayList<Attachments>();
 	Roles [] roles = new Roles[4];
 	
 	public void fillDataBase() {
@@ -74,17 +69,22 @@ public class DataInitilizer {
 			Teams team = new Teams("Team "+i, projects.get(i));
 			teams.add(team);
 			teamsRepository.save(team);
+			users.get(i).setTeam(team);
+			usersRepository.save(users.get(i));
 		}}
 	}
 
 	private void TasksInitilizer() {
 		tasks = tasksRepository.findAll();
 		if(tasks.isEmpty()) {
-		for(int i=0;i<10;i++) {
-			Tasks task = new Tasks();
-			tasks.add(task);
-			tasksRepository.save(task);
-		}		
+			for(int i=0;i<10;i++) {
+				Tasks task = new Tasks("title "+i, "TaskNumber "+i, "Description "+i, 
+						Status.BACKLOG, users.get(i), users.get(i),projects.get(i));
+				
+				tasks.add(task);
+				tasksRepository.save(task);
+			}		
+			
 		}
 	}
 
@@ -101,13 +101,25 @@ public class DataInitilizer {
 	}
 
 	private void CommentsInitilizer() {
-		// TODO Auto-generated method stub
-		
+		comments = commentsRepository.findAll();
+		if(comments.isEmpty()) {
+			for(int i=0;i<10;i++) {
+				Comments comment = new Comments("message "+i, users.get(i), LocalDateTime.of(2022, 4, (i+1),10,10), tasks.get(i));
+				comments.add(comment);
+				commentsRepository.save(comment);
+			}		
+		}
 	}
 
 	private void AttachmentsInitilizer() {
-		// TODO Auto-generated method stub
-		
+		attachments = attachmentsRepository.findAll();
+		if(attachments.isEmpty()) {
+			for(int i=0;i<10;i++) {
+				Attachments attachment = new Attachments(tasks.get(i),users.get(i),"Title "+i, "Path "+i, "Icon "+i);
+				attachments.add(attachment);
+				attachmentsRepository.save(attachment);
+			}		
+		}
 	}
 
 }
