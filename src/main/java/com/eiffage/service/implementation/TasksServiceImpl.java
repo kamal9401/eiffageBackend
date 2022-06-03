@@ -14,12 +14,10 @@ import com.eiffage.repo.UsersRepository;
 import com.eiffage.service.TasksService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
 @Transactional
-@Slf4j
 public class TasksServiceImpl implements TasksService{
 
 	@Autowired

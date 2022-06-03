@@ -1,4 +1,5 @@
 package com.eiffage.service.implementation;
+
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,16 +10,11 @@ import org.springframework.stereotype.Service;
 import com.eiffage.model.Attachments;
 import com.eiffage.repo.AttachmentsRepository;
 import com.eiffage.service.AttachmentsService;
-
-
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 @RequiredArgsConstructor
 @Service
 @Transactional
-@Slf4j
-public class AttachmentsServiceImpl implements AttachmentsService{
+public class AttachmentsServiceImpl implements AttachmentsService {
 
 	@Autowired
 	AttachmentsRepository filesRepo;
@@ -34,7 +30,7 @@ public class AttachmentsServiceImpl implements AttachmentsService{
 	}
 
 	private void downloadFromServer(Long id) {
-		
+
 	}
 
 	@Override
@@ -44,7 +40,7 @@ public class AttachmentsServiceImpl implements AttachmentsService{
 	}
 
 	private void copyFileToServer(String path) {
-		
+
 	}
 
 	@Override

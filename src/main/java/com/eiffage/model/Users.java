@@ -1,5 +1,7 @@
 package com.eiffage.model;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,34 +15,40 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.eiffage.model.enumeration.Roles;
 import com.eiffage.model.enumeration.Status;
 
 @Table(name = "users")
 @Entity
-public class Users {
-	//todo  : ADD LOGIN AND PASSWORD US STRING FIELDS
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+public class Users implements UserDetails {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUser;
-	@Column(unique=true)
-	@NotEmpty(message="email cannot empty or null")
+	@Column(unique = true)
+	@NotEmpty(message = "email cannot empty or null")
 	private String email;
 	private String firstName;
 	private String lastName;
 	private String birthday;
-	@Column(unique=true)
-	@NotEmpty(message="email cannot empty or null")
+	@Column(unique = true)
+	@NotEmpty(message = "email cannot empty or null")
 	private String cin;
 	private String password;
+	private Boolean locked = false;
+	private boolean enabled = false;
 	private String photo;
 	private String phone;
 	private boolean activated;
 	private Status status;
 	private Roles role;
-	
-	@ManyToOne( fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Teams team;
-	
+
 	@OneToMany
 	private List<Tasks> tasksReported;
 
@@ -56,10 +64,9 @@ public class Users {
 	@OneToMany
 	private List<Projects> projects;
 
-	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName,
-			String lastName, String birthday, @NotEmpty(message = "email cannot empty or null") String cin,
-			String password, String photo, String phone, boolean activated, 
-			Status status, Roles role) {
+	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
+			String birthday, @NotEmpty(message = "email cannot empty or null") String cin, String password,
+			String photo, String phone, boolean activated, Status status, Roles role) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -74,8 +81,24 @@ public class Users {
 		this.role = role;
 	}
 
+	public Users(String firstName, String lastName, String email, String password, Roles role
+
+	) {
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.role = role;
+	}
+
 	public Users() {
 		super();
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
+		return Collections.singletonList(authority);
 	}
 
 	public Long getIdUser() {
@@ -126,6 +149,7 @@ public class Users {
 		this.cin = cin;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -228,6 +252,31 @@ public class Users {
 				+ ", birthday=" + birthday + ", cin=" + cin + ", password=" + password + ", photo=" + photo + ", phone="
 				+ phone + ", activated=" + activated + ", status=" + status + ", role=" + role + ", tasksReported="
 				+ tasksReported + ", tasksAssigned=" + tasksAssigned + ", comments=" + comments + ", attachments="
-				+ attachments + ", projects=" + projects +", team=" + team + "]";
+				+ attachments + ", projects=" + projects + ", team=" + team + "]";
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return !locked;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
 	}
 }

@@ -14,12 +14,10 @@ import com.eiffage.service.ProjectsService;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
 @Transactional
-@Slf4j
 public class ProjectsServiceImpl implements ProjectsService{
 
 	@Autowired

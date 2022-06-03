@@ -13,12 +13,10 @@ import com.eiffage.repo.UsersRepository;
 import com.eiffage.service.TeamsService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
 @Transactional
-@Slf4j
 public class TeamsServiceImpl implements TeamsService{
 
 	@Autowired
