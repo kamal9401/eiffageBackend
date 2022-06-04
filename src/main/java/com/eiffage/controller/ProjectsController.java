@@ -2,6 +2,7 @@ package com.eiffage.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eiffage.model.Projects;
+import com.eiffage.model.enumeration.Constante;
 import com.eiffage.model.enumeration.Status;
 import com.eiffage.service.ProjectsService;
 
+@CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
 public class ProjectsController implements ProjectsService{
 	ProjectsService service;

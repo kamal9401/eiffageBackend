@@ -66,7 +66,7 @@ public class Users implements UserDetails {
 
 	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
 			String birthday, @NotEmpty(message = "email cannot empty or null") String cin, String password,
-			String photo, String phone, boolean activated, Status status, Roles role) {
+			String photo, String phone, boolean activated, Status status, Roles role,boolean enabled) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -79,6 +79,7 @@ public class Users implements UserDetails {
 		this.activated = activated;
 		this.status = status;
 		this.role = role;
+		this.enabled=enabled;
 	}
 
 	public Users(String firstName, String lastName, String email, String password, Roles role

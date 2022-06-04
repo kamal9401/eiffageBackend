@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import com.eiffage.model.ConfirmationToken;
 import com.eiffage.model.Users;
 import com.eiffage.model.enumeration.Status;
@@ -64,8 +67,8 @@ public class UsersService implements UserDetailsService {
 		return usersRepo.enableUsers(email);
 	}
 
-	public List<Users> list() {
-		return usersRepo.findAll();
+	public Page<Users> list() {
+		return usersRepo.findAll(PageRequest.of(1,5));
 	}
 
 	public Users create(Users user) {

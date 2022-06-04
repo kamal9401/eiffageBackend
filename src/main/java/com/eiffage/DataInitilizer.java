@@ -5,22 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.eiffage.model.*;
 import com.eiffage.model.enumeration.*;
 import com.eiffage.repo.*;
 
 public class DataInitilizer {
+	
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	ApplicationContext ctx;
 	AttachmentsRepository attachmentsRepository;
 	TasksRepository tasksRepository;
-	CommentsRepository commentsRepository;
+	CommentsRepository commentsRepository; 
 	ProjectsRepository projectsRepository;
 	TeamsRepository teamsRepository;
 	UsersRepository usersRepository;
 	
 	DataInitilizer(ApplicationContext ctx){
 		this.ctx = ctx;
+		bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		attachmentsRepository = ctx.getBean(AttachmentsRepository.class);;
 		tasksRepository = ctx.getBean(TasksRepository.class);;
 		commentsRepository = ctx.getBean(CommentsRepository.class);;
@@ -51,12 +55,15 @@ public class DataInitilizer {
 	}
 	
 	private void UsersInitilizer() {
+		
 		users = usersRepository.findAll();
 		if(users.isEmpty()) {
 		for(int i=0;i<10;i++) {
+			 String encodedPassword = bCryptPasswordEncoder
+		                .encode("123456"+i);
 			Users user = new Users("user"+i+"@email.com","firstName "+i,
-					"lastName "+i,"2020-02-"+(i<10?"0"+i:i), "CIN "+i,"123456"+i, "Photo "+i,
-							"Phone "+i, true, Status.ONLINE,roles[i%4]);
+					"lastName "+i,"2020-02-"+(i<10?"0"+i:i), "CIN "+i,encodedPassword, "Photo "+i,
+							"Phone "+i, true, Status.ONLINE,roles[i%4],true);
 			users.add(user);
 			usersRepository.save(user);
 		}}

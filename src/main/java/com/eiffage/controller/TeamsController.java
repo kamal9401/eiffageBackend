@@ -2,6 +2,7 @@ package com.eiffage.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eiffage.model.Teams;
+import com.eiffage.model.enumeration.Constante;
 import com.eiffage.service.TeamsService;
 
+@CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
 public class TeamsController implements TeamsService{
 
