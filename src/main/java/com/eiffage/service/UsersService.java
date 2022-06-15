@@ -71,6 +71,9 @@ public class UsersService implements UserDetailsService {
 		return usersRepo.findAll(PageRequest.of(1,5));
 	}
 
+	public List<Users> findAll() {
+		return usersRepo.findAll();
+	}
 	public Users create(Users user) {
 		return usersRepo.save(user);
 	}

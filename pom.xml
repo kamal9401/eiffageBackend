@@ -106,10 +106,10 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/classes/static/</outputDirectory>
+							<outputDirectory>${basedir}/target/classes/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>C:\Users\suerace\Desktop\projetFront-Eiffage\frontEndEiffage\build</directory>
+									<directory>${basedir}/../frontEndEiffage/build</directory>
 								</resource>
 							</resources>
 						</configuration>

@@ -21,47 +21,68 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.eiffage.model.enumeration.Roles;
 import com.eiffage.model.enumeration.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name = "users")
 @Entity
 public class Users implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
 	private Long idUser;
 	@Column(unique = true)
 	@NotEmpty(message = "email cannot empty or null")
+	@JsonIgnore
 	private String email;
+	@JsonIgnore
 	private String firstName;
+	@JsonIgnore
 	private String lastName;
+	@JsonIgnore
 	private String birthday;
 	@Column(unique = true)
 	@NotEmpty(message = "email cannot empty or null")
+	@JsonIgnore
 	private String cin;
+	@JsonIgnore
 	private String password;
+	@JsonIgnore
 	private Boolean locked = false;
+	@JsonIgnore
 	private boolean enabled = false;
+	@JsonIgnore
 	private String photo;
+	@JsonIgnore
 	private String phone;
+	@JsonIgnore
 	private boolean activated;
+	@JsonIgnore
 	private Status status;
+	@JsonIgnore
 	private Roles role;
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore	
 	private Teams team;
 
 	@OneToMany
+	@JsonIgnore
 	private List<Tasks> tasksReported;
 
 	@OneToMany
+	@JsonIgnore
 	private List<Tasks> tasksAssigned;
 
 	@OneToMany
+	@JsonIgnore
 	private List<Comments> comments;
 
 	@OneToMany
+	@JsonIgnore
 	private List<Attachments> attachments;
 
 	@OneToMany
+	@JsonIgnore
 	private List<Projects> projects;
 
 	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
