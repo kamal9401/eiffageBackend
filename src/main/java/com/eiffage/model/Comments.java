@@ -15,13 +15,13 @@ import javax.persistence.ManyToOne;
 		private String message;
 		private LocalDateTime timeStamp;
 		
-		@ManyToOne(targetEntity=Users.class)
-		private Users reporter;
+		@ManyToOne(targetEntity=User.class)
+		private User reporter;
 		
 		@ManyToOne(targetEntity=Tasks.class)
 		private Tasks task;
 
-		public Comments(String message, Users reporter, LocalDateTime timeStamp, Tasks task) {
+		public Comments(String message, User reporter, LocalDateTime timeStamp, Tasks task) {
 			super();
 			this.message = message;
 			this.reporter = reporter;
@@ -43,10 +43,10 @@ import javax.persistence.ManyToOne;
 		public void setMessage(String message) {
 			this.message = message;
 		}
-		public Users getReporter() {
+		public User getReporter() {
 			return reporter;
 		}
-		public void setReporter(Users reporter) {
+		public void setReporter(User reporter) {
 			this.reporter = reporter;
 		}
 		public LocalDateTime getTimeStamp() {

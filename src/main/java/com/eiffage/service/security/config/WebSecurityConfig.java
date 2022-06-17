@@ -16,8 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
+public class WebSecurityConfig {//extends WebSecurityConfigurerAdapter {
+	/*@Autowired
      UsersService usersService;
 	@Autowired
      BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -27,7 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/api/v*/registration/**")
                     .permitAll()
                 .anyRequest()
                 .authenticated().and()
@@ -46,5 +45,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         provider.setUserDetailsService(usersService);
         return provider;
-    }
+    }*/
 }

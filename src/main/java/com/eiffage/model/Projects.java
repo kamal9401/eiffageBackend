@@ -26,11 +26,11 @@ public class Projects {
 	@OneToMany
 	private List<Tasks> tasks;
 
-	@ManyToOne(targetEntity=Users.class)
-	private Users chefChantier;
+	@ManyToOne(targetEntity=User.class)
+	private User chefChantier;
 
 	public Projects(String description, String title, LocalDateTime timeStamp, Status status,
-			Users chefChantier) {
+			User chefChantier) {
 		super();
 		this.description = description;
 		this.title = title;
@@ -99,11 +99,11 @@ public class Projects {
 		this.tasks = tasks;
 	}
 
-	public Users getChefChantier() {
+	public User getChefChantier() {
 		return chefChantier;
 	}
 
-	public void setChefChantier(Users chefChantier) {
+	public void setChefChantier(User chefChantier) {
 		this.chefChantier = chefChantier;
 	}
 

@@ -41,15 +41,15 @@ public class ConfirmationToken {
             nullable = false,
             name = "app_user_id"
     )
-    private Users users;
+    private User user;
 
     public ConfirmationToken(String token,
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
-                             Users users) {
+                             User user) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.users = users;
+        this.user = user;
     }
 }

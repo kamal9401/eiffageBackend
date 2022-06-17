@@ -22,11 +22,11 @@ public class Tasks {
 	private String description;
 	private Status status;
 
-	@ManyToOne(targetEntity=Users.class)
-	private Users assignTo;
+	@ManyToOne(targetEntity=User.class)
+	private User assignTo;
 	
-	@ManyToOne(targetEntity=Users.class)
-	private Users reporter;
+	@ManyToOne(targetEntity=User.class)
+	private User reporter;
 
 	@ManyToOne(targetEntity=Projects.class)
 	private Projects project;
@@ -37,8 +37,8 @@ public class Tasks {
 	@OneToMany
 	private List<Attachments> attachments;
 
-	public Tasks(String title, String taskNumber, String description, Status status, Users assignTo,
-			Users reporter, Projects project) {
+	public Tasks(String title, String taskNumber, String description, Status status, User assignTo,
+			User reporter, Projects project) {
 		super();
 		this.title = title;
 		this.taskNumber = taskNumber;
@@ -93,19 +93,19 @@ public class Tasks {
 		this.status = status;
 	}
 
-	public Users getAssignTo() {
+	public User getAssignTo() {
 		return assignTo;
 	}
 
-	public void setAssignTo(Users assignTo) {
+	public void setAssignTo(User assignTo) {
 		this.assignTo = assignTo;
 	}
 
-	public Users getReporter() {
+	public User getReporter() {
 		return reporter;
 	}
 
-	public void setReporter(Users reporter) {
+	public void setReporter(User reporter) {
 		this.reporter = reporter;
 	}
 

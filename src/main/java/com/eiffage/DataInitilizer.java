@@ -33,7 +33,7 @@ public class DataInitilizer {
 		usersRepository = ctx.getBean(UsersRepository.class);;
 	}
 
-	List<Users> users = new ArrayList<Users>();
+	List<User> users = new ArrayList<User>();
 	List<Projects> projects = new ArrayList<Projects>();
 	List<Teams> teams = new ArrayList<Teams>();
 	List<Tasks> tasks = new ArrayList<Tasks>();
@@ -61,7 +61,7 @@ public class DataInitilizer {
 		for(int i=0;i<10;i++) {
 			 String encodedPassword = bCryptPasswordEncoder
 		                .encode("123456"+i);
-			Users user = new Users("user"+i+"@email.com","firstName "+i,
+			User user = new User("user"+i+"@email.com","firstName "+i,
 					"lastName "+i,"2020-02-"+(i<10?"0"+i:i), "CIN "+i,encodedPassword, "Photo "+i,
 							"Phone "+i, true, Status.ONLINE,roles[i%4],true);
 			users.add(user);

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eiffage.model.Users;
+import com.eiffage.model.User;
 import com.eiffage.model.enumeration.Constante;
 import com.eiffage.model.enumeration.Status;
 import com.eiffage.service.UsersService;
@@ -33,42 +33,42 @@ public class UsersController {
 //		}
 
 		@GetMapping("/users")
-		public List<Users> findAll(){
+		public List<User> findAll(){
 			return service.findAll();
 		}
 
 		@PostMapping("/users")
-		public Users create(@RequestBody Users users){
-			return service.create(users);
+		public User create(@RequestBody User user){
+			return service.create(user);
 		}
 		
 		@PutMapping("/users/{id}")
-		public Users update(@PathVariable Long id, @RequestBody Users user){
+		public User update(@PathVariable Long id, @RequestBody User user){
 			return service.update(id, user);
 		}
 
 		@PutMapping("/users/archive/{id}")
-		public Users archiveUser(@PathVariable Long id){
+		public User archiveUser(@PathVariable Long id){
 			return service.archiveUser(id);
 		}
 
 		@PutMapping("/users/active/{id}")
-		public Users activeUser(@PathVariable Long id){
+		public User activeUser(@PathVariable Long id){
 			return service.activeUser(id);
 		}
 
 		@GetMapping("/users/{id}")
-		public Users get(@PathVariable Long id) {
+		public User get(@PathVariable Long id) {
 			return service.get(id);
 		}
 
 		@GetMapping("/users/{id}/{oldPassword}/{newPassword}")
-		public Users changePassword(@PathVariable Long id,@PathVariable  String oldPassword,@PathVariable  String newPassword) {
+		public User changePassword(@PathVariable Long id,@PathVariable  String oldPassword,@PathVariable  String newPassword) {
 			return service.changePassword(id,oldPassword,newPassword);
 		}
 
 		@GetMapping("/users/changeStatus/{id}/{status}")
-		public Users changeStatus(@PathVariable Long id,@RequestBody Status status) {
+		public User changeStatus(@PathVariable Long id,@RequestBody Status status) {
 			return service.changeStatus(id,status);
 		}
 

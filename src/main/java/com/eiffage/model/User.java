@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,20 +17,29 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.eiffage.model.enumeration.Roles;
 import com.eiffage.model.enumeration.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-@Table(name = "users")
+@Table(name = "AUTH_USER_DETAILS")
 @Entity
-public class Users implements UserDetails {
+public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonIgnore
 	private Long idUser;
+
+	@Column(name = "USER_NAME", unique = true)
+	private String userName;
+
+	@Column(name = "USER_KEY")
+	private String password;
+	
 	@Column(unique = true)
 	@NotEmpty(message = "email cannot empty or null")
 	@JsonIgnore
@@ -45,11 +55,9 @@ public class Users implements UserDetails {
 	@JsonIgnore
 	private String cin;
 	@JsonIgnore
-	private String password;
-	@JsonIgnore
 	private Boolean locked = false;
 	@JsonIgnore
-	private boolean enabled = false;
+	private boolean enabled = true;
 	@JsonIgnore
 	private String photo;
 	@JsonIgnore
@@ -60,7 +68,11 @@ public class Users implements UserDetails {
 	private Status status;
 	@JsonIgnore
 	private Roles role;
-
+	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinTable(name = "AUTH_USER_AUTHORITY", joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName ="id"))
+	private List<Authority> authorities;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore	
 	private Teams team;
@@ -77,6 +89,7 @@ public class Users implements UserDetails {
 	@JsonIgnore
 	private List<Comments> comments;
 
+	
 	@OneToMany
 	@JsonIgnore
 	private List<Attachments> attachments;
@@ -85,7 +98,7 @@ public class Users implements UserDetails {
 	@JsonIgnore
 	private List<Projects> projects;
 
-	public Users(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
+	public User(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
 			String birthday, @NotEmpty(message = "email cannot empty or null") String cin, String password,
 			String photo, String phone, boolean activated, Status status, Roles role,boolean enabled) {
 		super();
@@ -103,7 +116,7 @@ public class Users implements UserDetails {
 		this.enabled=enabled;
 	}
 
-	public Users(String firstName, String lastName, String email, String password, Roles role
+	public User(String firstName, String lastName, String email, String password, Roles role
 
 	) {
 		this.email = email;
@@ -113,16 +126,16 @@ public class Users implements UserDetails {
 		this.role = role;
 	}
 
-	public Users() {
+	public User() {
 		super();
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
-		return Collections.singletonList(authority);
+		// TODO Auto-generated method stub
+		return authorities;
 	}
-
+	
 	public Long getIdUser() {
 		return idUser;
 	}
@@ -279,12 +292,12 @@ public class Users implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return userName;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return this.enabled;
 	}
 
 	@Override
@@ -301,4 +314,30 @@ public class Users implements UserDetails {
 	public boolean isEnabled() {
 		return enabled;
 	}
+	
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Boolean getLocked() {
+		return locked;
+	}
+
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	
 }

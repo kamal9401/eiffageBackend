@@ -17,13 +17,13 @@ import javax.persistence.ManyToOne;
 		@ManyToOne(targetEntity=Tasks.class)
 		private Tasks task;
 
-		@ManyToOne(targetEntity=Users.class)
-		private Users uploadedBy;
+		@ManyToOne(targetEntity=User.class)
+		private User uploadedBy;
 
 		private String title;
 		private String path;
 		private String icon;
-		public Attachments(Tasks task, Users uploadedBy, String title, String path, String icon) {
+		public Attachments(Tasks task, User uploadedBy, String title, String path, String icon) {
 			super();
 			this.task = task;
 			this.uploadedBy = uploadedBy;
@@ -46,10 +46,10 @@ import javax.persistence.ManyToOne;
 		public void setTask(Tasks task) {
 			this.task = task;
 		}
-		public Users getUploadedBy() {
+		public User getUploadedBy() {
 			return uploadedBy;
 		}
-		public void setUploadedBy(Users uploadedBy) {
+		public void setUploadedBy(User uploadedBy) {
 			this.uploadedBy = uploadedBy;
 		}
 		public String getTitle() {

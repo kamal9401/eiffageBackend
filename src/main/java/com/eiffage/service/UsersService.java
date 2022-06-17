@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import com.eiffage.model.ConfirmationToken;
-import com.eiffage.model.Users;
+import com.eiffage.model.User;
 import com.eiffage.model.enumeration.Status;
 import com.eiffage.repo.UsersRepository;
 import com.eiffage.service.UsersService;
@@ -35,7 +35,7 @@ public class UsersService implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
 	}
 
-	public String signUpUser(Users appUser) {
+	public String signUpUser(User appUser) {
 		boolean userExists = usersRepo.findByEmail(appUser.getEmail()).isPresent();
 
 		if (userExists) {
@@ -67,19 +67,19 @@ public class UsersService implements UserDetailsService {
 		return usersRepo.enableUsers(email);
 	}
 
-	public Page<Users> list() {
+	public Page<User> list() {
 		return usersRepo.findAll(PageRequest.of(1,5));
 	}
 
-	public List<Users> findAll() {
+	public List<User> findAll() {
 		return usersRepo.findAll();
 	}
-	public Users create(Users user) {
+	public User create(User user) {
 		return usersRepo.save(user);
 	}
 
-	public Users update(Long id, Users user) {
-		Users myUser = usersRepo.findById(id).get();
+	public User update(Long id, User user) {
+		User myUser = usersRepo.findById(id).get();
 		myUser.setActivated(user.isActivated());
 		myUser.setAttachments(user.getAttachments());
 		myUser.setBirthday(user.getBirthday());
@@ -98,29 +98,29 @@ public class UsersService implements UserDetailsService {
 
 	}
 
-	public Users get(Long id) {
+	public User get(Long id) {
 		return usersRepo.findById(id).get();
 	}
 
-	public Users changePassword(Long idUser, String oldPassword, String newPassword) {
-		Users user = usersRepo.findById(idUser).get();
+	public User changePassword(Long idUser, String oldPassword, String newPassword) {
+		User user = usersRepo.findById(idUser).get();
 		if (user.getPassword().equals(oldPassword)) {
 			user.setPassword(newPassword);
 		}
 		return usersRepo.save(user);
 	}
 
-	public Users changeStatus(Long idUser, Status status) {
-		Users user = usersRepo.findById(idUser).get();
+	public User changeStatus(Long idUser, Status status) {
+		User user = usersRepo.findById(idUser).get();
 		user.setStatus(status);
 		return usersRepo.save(user);
 	}
 
-	public Users archiveUser(Long idUser) {
+	public User archiveUser(Long idUser) {
 		return this.changeStatus(idUser, Status.INACTIVE);
 	}
 
-	public Users activeUser(Long idUser) {
+	public User activeUser(Long idUser) {
 		return this.changeStatus(idUser, Status.ACTIVE);
 	}
 }

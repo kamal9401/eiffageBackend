@@ -18,7 +18,7 @@ public class Teams {
 	private String name;
 
 	@ManyToMany( fetch = FetchType.EAGER)
-	private List<Users> users;
+	private List<User> user;
 	
 	@ManyToOne(targetEntity=Projects.class)
 	private Projects currentProject;
@@ -49,12 +49,12 @@ public class Teams {
 		this.name = name;
 	}
 
-	public List<Users> getUsers() {
-		return users;
+	public List<User> getUsers() {
+		return user;
 	}
 
-	public void setUsers(List<Users> users) {
-		this.users = users;
+	public void setUsers(List<User> user) {
+		this.user = user;
 	}
 
 	public Projects getCurrentProject() {
@@ -67,7 +67,7 @@ public class Teams {
 
 	@Override
 	public String toString() {
-		return "Teams [id=" + id + ", name=" + name + ", users=" + users + ", currentProject=" + currentProject + "]";
+		return "Teams [id=" + id + ", name=" + name + ", users=" + user + ", currentProject=" + currentProject + "]";
 	}
 
 }

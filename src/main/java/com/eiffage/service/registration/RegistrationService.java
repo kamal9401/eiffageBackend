@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eiffage.model.ConfirmationToken;
-import com.eiffage.model.Users;
+import com.eiffage.model.User;
 import com.eiffage.model.enumeration.Roles;
 import com.eiffage.service.ConfirmationTokenService;
 import com.eiffage.service.UsersService;
@@ -31,7 +31,7 @@ public class RegistrationService {
         }
 
         String token = appUserService.signUpUser(
-                new Users(
+                new User(
                         request.getFirstName(),
                         request.getLastName(),
                         request.getEmail(),
@@ -68,7 +68,7 @@ public class RegistrationService {
 
         confirmationTokenService.setConfirmedAt(token);
         appUserService.enableAppUser(
-                confirmationToken.getUsers().getEmail());
+                confirmationToken.getUser().getEmail());
         return "confirmed";
     }
 

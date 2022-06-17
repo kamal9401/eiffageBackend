@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eiffage.model.Teams;
-import com.eiffage.model.Users;
+import com.eiffage.model.User;
 import com.eiffage.repo.TeamsRepository;
 import com.eiffage.repo.UsersRepository;
 import com.eiffage.service.TeamsService;
@@ -58,7 +58,7 @@ public class TeamsServiceImpl implements TeamsService{
 	@Override
 	public Teams assignUserToTeam(Long idUser, Long idTeam) {
 		Teams myTeam = teamsRepo.findById(idTeam).get();
-		Users user = userRepo.findById(idUser).get();
+		User user = userRepo.findById(idUser).get();
 		myTeam.getUsers().add(user);
 		return teamsRepo.save(myTeam);
 	}

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eiffage.model.Tasks;
-import com.eiffage.model.Users;
+import com.eiffage.model.User;
 import com.eiffage.model.enumeration.Status;
 import com.eiffage.repo.TasksRepository;
 import com.eiffage.repo.UsersRepository;
@@ -71,7 +71,7 @@ public class TasksServiceImpl implements TasksService{
 	@Override
 	public Tasks assignTaskToUser(Long idTask, Long idUser) {
 		Tasks task  = tasksRepo.findById(idTask).get();
-		Users user  = userRepo.findById(idUser).get();
+		User user  = userRepo.findById(idUser).get();
 		task.setAssignTo(user);
 		return tasksRepo.save(task);
 		
