@@ -1,7 +1,6 @@
 package com.eiffage.model;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -29,10 +27,15 @@ import javax.persistence.ManyToMany;
 @Table(name = "AUTH_USER_DETAILS")
 @Entity
 public class User implements UserDetails {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonIgnore
-	private Long idUser;
+	private Long id;
 
 	@Column(name = "USER_NAME", unique = true)
 	private String userName;
@@ -73,10 +76,6 @@ public class User implements UserDetails {
 	@JoinTable(name = "AUTH_USER_AUTHORITY", joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName ="id"))
 	private List<Authority> authorities;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore	
-	private Teams team;
-
 	@OneToMany
 	@JsonIgnore
 	private List<Tasks> tasksReported;
@@ -136,12 +135,12 @@ public class User implements UserDetails {
 		return authorities;
 	}
 	
-	public Long getIdUser() {
-		return idUser;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public void setId(Long idUser) {
+		this.id = idUser;
 	}
 
 	public String getEmail() {
@@ -273,21 +272,13 @@ public class User implements UserDetails {
 		this.projects = projects;
 	}
 
-	public Teams getTeam() {
-		return team;
-	}
-
-	public void setTeam(Teams team) {
-		this.team = team;
-	}
-
 	@Override
 	public String toString() {
-		return "Users [idUser=" + idUser + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+		return "Users [idUser=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", birthday=" + birthday + ", cin=" + cin + ", password=" + password + ", photo=" + photo + ", phone="
 				+ phone + ", activated=" + activated + ", status=" + status + ", role=" + role + ", tasksReported="
 				+ tasksReported + ", tasksAssigned=" + tasksAssigned + ", comments=" + comments + ", attachments="
-				+ attachments + ", projects=" + projects + ", team=" + team + "]";
+				+ attachments + ", projects=" + projects + "]";
 	}
 
 	@Override

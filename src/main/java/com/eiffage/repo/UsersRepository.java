@@ -13,10 +13,10 @@ import com.eiffage.model.User;
 @Transactional(readOnly = true)
 public interface UsersRepository extends JpaRepository<User, Long> {
 	 Optional<User> findByEmail(String email);
-
-	    @Transactional
-	    @Modifying
-	    @Query("UPDATE Users a " +
-	            "SET a.enabled = TRUE WHERE a.email = ?1")
-	    int enableUsers(String email);
+//
+//	    @Transactional
+//	    @Modifying
+//	    @Query("UPDATE Users a " +
+//	            "SET a.enabled = TRUE WHERE a.email = ?1")
+//	    int enableUsers(String email);
 }

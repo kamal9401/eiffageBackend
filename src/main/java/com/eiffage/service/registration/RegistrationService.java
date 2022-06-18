@@ -2,16 +2,10 @@ package com.eiffage.service.registration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.eiffage.model.ConfirmationToken;
-import com.eiffage.model.User;
-import com.eiffage.model.enumeration.Roles;
-import com.eiffage.service.ConfirmationTokenService;
 import com.eiffage.service.UsersService;
 import com.eiffage.service.email.EmailSender;
 
-import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -19,58 +13,7 @@ public class RegistrationService {
 
     private final UsersService appUserService;
     private final EmailValidator emailValidator;
-    private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
-
-    public String register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.
-                test(request.getEmail());
-
-        if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
-        }
-
-        String token = appUserService.signUpUser(
-                new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
-                        Roles.OUVRIER
-
-                )
-        );
-
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        emailSender.send(
-                request.getEmail(),
-                buildEmail(request.getFirstName(), link));
-
-        return token;
-    }
-
-    @Transactional
-    public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService
-                .getToken(token)
-                .orElseThrow(() ->
-                        new IllegalStateException("token not found"));
-
-        if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
-        }
-
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-
-        if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
-        }
-
-        confirmationTokenService.setConfirmedAt(token);
-        appUserService.enableAppUser(
-                confirmationToken.getUser().getEmail());
-        return "confirmed";
-    }
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +

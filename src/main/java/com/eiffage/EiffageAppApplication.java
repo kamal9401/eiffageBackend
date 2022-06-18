@@ -22,9 +22,10 @@ public class EiffageAppApplication {
 	@Autowired
 	private UserDetailsRepository userDetailsRepository;
 	public static void main(String[] args) {
-		ApplicationContext ctx= SpringApplication.run(EiffageAppApplication.class, args);
-		DataInitilizer data = new DataInitilizer(ctx);
-		data.fillDataBase();
+		//ApplicationContext ctx= SpringApplication.run(EiffageAppApplication.class, args);
+		SpringApplication.run(EiffageAppApplication.class, args);
+	//	DataInitilizer data = new DataInitilizer(ctx);
+		//data.fillDataBase();
 	}
 	
 	@PostConstruct
@@ -37,18 +38,17 @@ public class EiffageAppApplication {
 		
 		User user=new User();
 		
-		user.setUserName("pardeep161");
+		user.setUserName("achtech");
 		user.setFirstName("Pardeep");
 		user.setLastName("K");
+		user.setEmail("user0@email.com");
+		user.setCin("CIN0");
+		user.setLastName("K");
 		
-		user.setPassword(passwordEncoder.encode("pardeep@123"));
+		user.setPassword(passwordEncoder.encode("1234560"));
 		user.setEnabled(true);
 		user.setAuthorities(authorityList);
-		
 		userDetailsRepository.save(user);
-		
-		
-		
 	}
 	
 	

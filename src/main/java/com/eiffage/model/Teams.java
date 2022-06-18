@@ -18,6 +18,7 @@ public class Teams {
 	private String name;
 
 	@ManyToMany( fetch = FetchType.EAGER)
+	
 	private List<User> user;
 	
 	@ManyToOne(targetEntity=Projects.class)

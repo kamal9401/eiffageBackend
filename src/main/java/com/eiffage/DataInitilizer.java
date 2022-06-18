@@ -76,7 +76,7 @@ public class DataInitilizer {
 			Teams team = new Teams("Team "+i, projects.get(i));
 			teams.add(team);
 			teamsRepository.save(team);
-			users.get(i).setTeam(team);
+			//users.get(i).setTeam(team);
 			usersRepository.save(users.get(i));
 		}}
 	}

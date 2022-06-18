@@ -22,8 +22,8 @@ public class TeamsServiceImpl implements TeamsService{
 	@Autowired
 	TeamsRepository teamsRepo;
 
-	@Autowired
-	UsersRepository userRepo;
+//	@Autowired
+//	UsersRepository userRepo;
 
 	@Override
 	public List<Teams> list() {
@@ -58,15 +58,15 @@ public class TeamsServiceImpl implements TeamsService{
 	@Override
 	public Teams assignUserToTeam(Long idUser, Long idTeam) {
 		Teams myTeam = teamsRepo.findById(idTeam).get();
-		User user = userRepo.findById(idUser).get();
-		myTeam.getUsers().add(user);
+//		User user = userRepo.findById(idUser).get();
+//		myTeam.getUsers().add(user);
 		return teamsRepo.save(myTeam);
 	}
 
 	@Override
 	public Teams removeUserFromTeam(Long idUser, Long idTeam) {
 		Teams myTeam = teamsRepo.findById(idTeam).get();
-		myTeam.getUsers().removeIf(e->e.getIdUser()==idUser);
+		myTeam.getUsers().removeIf(e->e.getId()==idUser);
 		return teamsRepo.save(myTeam);
 	}
 
