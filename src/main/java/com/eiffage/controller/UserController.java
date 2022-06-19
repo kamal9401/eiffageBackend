@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eiffage.model.User;
 import com.eiffage.model.enumeration.Constante;
 import com.eiffage.model.enumeration.Status;
-import com.eiffage.service.UsersService;
+import com.eiffage.service.UserService;
 
 @CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
-public class UsersController {
+public class UserController {
 
-		UsersService service;
+		UserService service;
 
-		public UsersController(UsersService service) {
+		public UserController(UserService service) {
 			this.service = service;
 		}
 		

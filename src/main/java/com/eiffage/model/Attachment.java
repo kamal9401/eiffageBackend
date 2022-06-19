@@ -9,13 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 	
 	@Entity
-	public class Attachments {
+	public class Attachment {
 
 		@Id  @GeneratedValue(strategy = GenerationType.AUTO)
 		private Long id; 
 		
-		@ManyToOne(targetEntity=Tasks.class)
-		private Tasks task;
+		@ManyToOne(targetEntity=Task.class)
+		private Task task;
 
 		@ManyToOne(targetEntity=User.class)
 		private User uploadedBy;
@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 		private String title;
 		private String path;
 		private String icon;
-		public Attachments(Tasks task, User uploadedBy, String title, String path, String icon) {
+		public Attachment(Task task, User uploadedBy, String title, String path, String icon) {
 			super();
 			this.task = task;
 			this.uploadedBy = uploadedBy;
@@ -31,7 +31,7 @@ import javax.persistence.ManyToOne;
 			this.path = path;
 			this.icon = icon;
 		}
-		public Attachments() {
+		public Attachment() {
 			super();
 		}
 		public Long getId() {
@@ -40,10 +40,10 @@ import javax.persistence.ManyToOne;
 		public void setId(Long id) {
 			this.id = id;
 		}
-		public Tasks getTask() {
+		public Task getTask() {
 			return task;
 		}
-		public void setTask(Tasks task) {
+		public void setTask(Task task) {
 			this.task = task;
 		}
 		public User getUploadedBy() {

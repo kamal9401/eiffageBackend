@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import com.eiffage.model.enumeration.Status;
 
 @Entity
-public class Projects {
+public class Project {
 	@Id  @GeneratedValue(strategy = GenerationType.AUTO)
  	private Long id;
 	private String description;
@@ -21,15 +21,15 @@ public class Projects {
 	private Status status;
 
 	@OneToMany
-	private List<Teams> teams;
+	private List<Team> team;
 
 	@OneToMany
-	private List<Tasks> tasks;
+	private List<Task> task;
 
 	@ManyToOne(targetEntity=User.class)
 	private User chefChantier;
 
-	public Projects(String description, String title, LocalDateTime timeStamp, Status status,
+	public Project(String description, String title, LocalDateTime timeStamp, Status status,
 			User chefChantier) {
 		super();
 		this.description = description;
@@ -39,7 +39,7 @@ public class Projects {
 		this.chefChantier = chefChantier;
 	}
 
-	public Projects() {
+	public Project() {
 		super();
 	}
 
@@ -83,20 +83,20 @@ public class Projects {
 		this.status = status;
 	}
 
-	public List<Teams> getTeams() {
-		return teams;
+	public List<Team> getTeams() {
+		return team;
 	}
 
-	public void setTeams(List<Teams> teams) {
-		this.teams = teams;
+	public void setTeams(List<Team> team) {
+		this.team = team;
 	}
 
-	public List<Tasks> getTasks() {
-		return tasks;
+	public List<Task> getTasks() {
+		return task;
 	}
 
-	public void setTasks(List<Tasks> tasks) {
-		this.tasks = tasks;
+	public void setTasks(List<Task> task) {
+		this.task = task;
 	}
 
 	public User getChefChantier() {
@@ -110,7 +110,7 @@ public class Projects {
 	@Override
 	public String toString() {
 		return "Projects [id=" + id + ", description=" + description + ", title=" + title + ", timeStamp=" + timeStamp
-				+ ", status=" + status + ", teams=" + teams + ", tasks=" + tasks + ", chefChantier=" + chefChantier
+				+ ", status=" + status + ", teams=" + team + ", tasks=" + task + ", chefChantier=" + chefChantier
 				+ "]";
 	}
 	

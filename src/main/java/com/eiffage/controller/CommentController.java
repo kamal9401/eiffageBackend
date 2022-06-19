@@ -11,32 +11,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eiffage.model.Comments;
+import com.eiffage.model.Comment;
 import com.eiffage.model.enumeration.Constante;
-import com.eiffage.service.CommentsService;
+import com.eiffage.service.CommentService;
 
 @CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
-public class CommentsController {
+public class CommentController {
 
-	CommentsService service;
+	CommentService service;
 
-	public CommentsController(CommentsService service) {
+	public CommentController(CommentService service) {
 		this.service = service;
 	}
 	
 	@GetMapping("/comments")
-	public List<Comments> list(){
+	public List<Comment> list(){
 		return service.list();
 	}
 	
 	@PostMapping("/comments")
-	public Comments create(@RequestBody Comments comments){
-		return service.create(comments);
+	public Comment create(@RequestBody Comment comment){
+		return service.create(comment);
 	}
 	
 	@PutMapping("/comments/{id}")
-	public Comments update(@PathVariable Long id, @RequestBody Comments comment){
+	public Comment update(@PathVariable Long id, @RequestBody Comment comment){
 		return service.update(id, comment);
 	}
 
@@ -46,17 +46,17 @@ public class CommentsController {
 	}
 
 	@GetMapping("/comments/{id}")
-	public Comments get(@PathVariable Long id) {
+	public Comment get(@PathVariable Long id) {
 		return service.get(id);
 	}
 
 	@GetMapping("/comments/tasks/{idTasks}")
-	public List<Comments> getCommentByTask(@PathVariable Long idTask) {
+	public List<Comment> getCommentByTask(@PathVariable Long idTask) {
 		return service.getCommentByTask(idTask);
 	}
 
 	@GetMapping("/comments/user/{idUser}")
-	public List<Comments> getCommentByUser(@PathVariable Long idUser) {
+	public List<Comment> getCommentByUser(@PathVariable Long idUser) {
 		return service.getCommentByUser(idUser);
 	}
 

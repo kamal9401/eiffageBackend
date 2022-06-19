@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 	@Entity  
-	public class Comments {
+	public class Comment {
 		@Id  @GeneratedValue(strategy = GenerationType.AUTO)
 		private Long id; 
 		private String message;
@@ -18,17 +18,17 @@ import javax.persistence.ManyToOne;
 		@ManyToOne(targetEntity=User.class)
 		private User reporter;
 		
-		@ManyToOne(targetEntity=Tasks.class)
-		private Tasks task;
+		@ManyToOne(targetEntity=Task.class)
+		private Task task;
 
-		public Comments(String message, User reporter, LocalDateTime timeStamp, Tasks task) {
+		public Comment(String message, User reporter, LocalDateTime timeStamp, Task task) {
 			super();
 			this.message = message;
 			this.reporter = reporter;
 			this.timeStamp = timeStamp;
 			this.task = task;
 		}
-		public Comments() {
+		public Comment() {
 			super();
 		}
 		public Long getId() {
@@ -55,10 +55,10 @@ import javax.persistence.ManyToOne;
 		public void setTimeStamp(LocalDateTime timeStamp) {
 			this.timeStamp = timeStamp;
 		}
-		public Tasks getTask() {
+		public Task getTask() {
 			return task;
 		}
-		public void setTask(Tasks task) {
+		public void setTask(Task task) {
 			this.task = task;
 		}
 		

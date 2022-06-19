@@ -11,32 +11,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eiffage.model.Tasks;
+import com.eiffage.model.Task;
 import com.eiffage.model.enumeration.Constante;
 import com.eiffage.model.enumeration.Status;
-import com.eiffage.service.TasksService;
+import com.eiffage.service.TaskService;
 
 @CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
-public class TasksController {
-	TasksService service;
+public class TaskController {
+	TaskService service;
 
-	public TasksController(TasksService service) {
+	public TaskController(TaskService service) {
 		this.service = service;
 	}
 	
 	@GetMapping("/tasks")
-	public List<Tasks> list(){
+	public List<Task> list(){
 		return service.list();
 	}
 	
 	@PostMapping("/tasks")
-	public Tasks create(@RequestBody Tasks task){
+	public Task create(@RequestBody Task task){
 		return service.create(task);
 	}
 	
 	@PutMapping("/tasks/{id}")
-	public Tasks update(@PathVariable Long id, @RequestBody Tasks task){
+	public Task update(@PathVariable Long id, @RequestBody Task task){
 		return service.update(id, task);
 	}
 
@@ -46,17 +46,17 @@ public class TasksController {
 	}
 
 	@GetMapping("/tasks/{id}")
-	public Tasks get(@PathVariable Long id) {
+	public Task get(@PathVariable Long id) {
 		return service.get(id);
 	}
 
 	@PutMapping("/tasks/status/{id}/{status}")
-	public Tasks changeStatus(Long id, Status status) {
+	public Task changeStatus(Long id, Status status) {
 		return service.changeStatus(id, status);
 	}
 
 	@PutMapping("/tasks/assign/{id}/{idUser}")
-	public Tasks assignTaskToUser(Long idTask, Long idUser) {
+	public Task assignTaskToUser(Long idTask, Long idUser) {
 		return service.assignTaskToUser(idTask, idUser);
 	}
 

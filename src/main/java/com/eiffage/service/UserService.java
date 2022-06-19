@@ -10,17 +10,17 @@ import org.springframework.data.domain.PageRequest;
 import com.eiffage.model.User;
 import com.eiffage.model.enumeration.Status;
 import com.eiffage.repo.UserDetailsRepository;
-import com.eiffage.repo.UsersRepository;
-import com.eiffage.service.UsersService;
+import com.eiffage.repo.UserRepository;
+import com.eiffage.service.UserService;
 
 @Service
-public class UsersService {
+public class UserService {
 
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
 
 	@Autowired
-	UsersRepository usersRepo;
+	UserRepository usersRepo;
 
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;

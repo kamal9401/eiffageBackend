@@ -11,7 +11,7 @@ import java.util.Optional;
 import com.eiffage.model.User;
 @Repository
 @Transactional(readOnly = true)
-public interface UsersRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	 Optional<User> findByEmail(String email);
 //
 //	    @Transactional

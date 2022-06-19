@@ -11,37 +11,37 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eiffage.model.Projects;
+import com.eiffage.model.Project;
 import com.eiffage.model.enumeration.Constante;
 import com.eiffage.model.enumeration.Status;
-import com.eiffage.service.ProjectsService;
+import com.eiffage.service.ProjectService;
 
 @CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
-public class ProjectsController implements ProjectsService{
-	ProjectsService service;
+public class ProjectController implements ProjectService{
+	ProjectService service;
 
-	public ProjectsController(ProjectsService service) {
+	public ProjectController(ProjectService service) {
 		this.service = service;
 	}
 
 	@GetMapping("/projects")	
-	public List<Projects> list() {
+	public List<Project> list() {
 		return service.list();
 	}
 
 	@PutMapping("/projects")
-	public Projects create(@RequestBody Projects project) {
+	public Project create(@RequestBody Project project) {
 		return service.create(project);
 	}
 
 	@PostMapping("/projects")
-	public Projects update(@PathVariable Long id, @RequestBody  Projects project) {
+	public Project update(@PathVariable Long id, @RequestBody  Project project) {
 		return service.update(id, project);
 	}
 	
 	@GetMapping("/projects/{id}")
-	public Projects get(@PathVariable Long id) {
+	public Project get(@PathVariable Long id) {
 		return service.get(id);
 	}
 
@@ -51,7 +51,7 @@ public class ProjectsController implements ProjectsService{
 	}
 
 	@PostMapping("/projects/status/{id}/{status}")
-	public Projects changeStatus(@PathVariable Long id, @RequestBody Status status) {
+	public Project changeStatus(@PathVariable Long id, @RequestBody Status status) {
 		return service.changeStatus(id, status);
 	}
 

@@ -17,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.eiffage.model.enumeration.Roles;
+import com.eiffage.model.enumeration.Role;
 import com.eiffage.model.enumeration.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.JoinColumn;
@@ -70,7 +70,7 @@ public class User implements UserDetails {
 	@JsonIgnore
 	private Status status;
 	@JsonIgnore
-	private Roles role;
+	private Role role;
 	
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinTable(name = "AUTH_USER_AUTHORITY", joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName ="id"))
@@ -78,28 +78,28 @@ public class User implements UserDetails {
 	
 	@OneToMany
 	@JsonIgnore
-	private List<Tasks> tasksReported;
+	private List<Task> tasksReported;
 
 	@OneToMany
 	@JsonIgnore
-	private List<Tasks> tasksAssigned;
+	private List<Task> tasksAssigned;
 
 	@OneToMany
 	@JsonIgnore
-	private List<Comments> comments;
+	private List<Comment> comment;
 
 	
 	@OneToMany
 	@JsonIgnore
-	private List<Attachments> attachments;
+	private List<Attachment> attachment;
 
 	@OneToMany
 	@JsonIgnore
-	private List<Projects> projects;
+	private List<Project> project;
 
 	public User(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
 			String birthday, @NotEmpty(message = "email cannot empty or null") String cin, String password,
-			String photo, String phone, boolean activated, Status status, Roles role,boolean enabled) {
+			String photo, String phone, boolean activated, Status status, Role role,boolean enabled) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -115,7 +115,7 @@ public class User implements UserDetails {
 		this.enabled=enabled;
 	}
 
-	public User(String firstName, String lastName, String email, String password, Roles role
+	public User(String firstName, String lastName, String email, String password, Role role
 
 	) {
 		this.email = email;
@@ -224,52 +224,52 @@ public class User implements UserDetails {
 		this.status = status;
 	}
 
-	public Roles getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(Roles role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
-	public List<Tasks> getTasksReported() {
+	public List<Task> getTasksReported() {
 		return tasksReported;
 	}
 
-	public void setTasksReported(List<Tasks> tasksReported) {
+	public void setTasksReported(List<Task> tasksReported) {
 		this.tasksReported = tasksReported;
 	}
 
-	public List<Tasks> getTasksAssigned() {
+	public List<Task> getTasksAssigned() {
 		return tasksAssigned;
 	}
 
-	public void setTasksAssigned(List<Tasks> tasksAssigned) {
+	public void setTasksAssigned(List<Task> tasksAssigned) {
 		this.tasksAssigned = tasksAssigned;
 	}
 
-	public List<Comments> getComments() {
-		return comments;
+	public List<Comment> getComments() {
+		return comment;
 	}
 
-	public void setComments(List<Comments> comments) {
-		this.comments = comments;
+	public void setComments(List<Comment> comment) {
+		this.comment = comment;
 	}
 
-	public List<Attachments> getAttachments() {
-		return attachments;
+	public List<Attachment> getAttachments() {
+		return attachment;
 	}
 
-	public void setAttachments(List<Attachments> attachments) {
-		this.attachments = attachments;
+	public void setAttachments(List<Attachment> attachment) {
+		this.attachment = attachment;
 	}
 
-	public List<Projects> getProjects() {
-		return projects;
+	public List<Project> getProjects() {
+		return project;
 	}
 
-	public void setProjects(List<Projects> projects) {
-		this.projects = projects;
+	public void setProjects(List<Project> project) {
+		this.project = project;
 	}
 
 	@Override
@@ -277,8 +277,8 @@ public class User implements UserDetails {
 		return "Users [idUser=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", birthday=" + birthday + ", cin=" + cin + ", password=" + password + ", photo=" + photo + ", phone="
 				+ phone + ", activated=" + activated + ", status=" + status + ", role=" + role + ", tasksReported="
-				+ tasksReported + ", tasksAssigned=" + tasksAssigned + ", comments=" + comments + ", attachments="
-				+ attachments + ", projects=" + projects + "]";
+				+ tasksReported + ", tasksAssigned=" + tasksAssigned + ", comments=" + comment + ", attachments="
+				+ attachment + ", projects=" + project + "]";
 	}
 
 	@Override

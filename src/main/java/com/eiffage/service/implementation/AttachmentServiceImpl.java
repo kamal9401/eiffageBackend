@@ -7,20 +7,20 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eiffage.model.Attachments;
-import com.eiffage.repo.AttachmentsRepository;
-import com.eiffage.service.AttachmentsService;
+import com.eiffage.model.Attachment;
+import com.eiffage.repo.AttachmentRepository;
+import com.eiffage.service.AttachmentService;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class AttachmentsServiceImpl implements AttachmentsService {
+public class AttachmentServiceImpl implements AttachmentService {
 
 	@Autowired
-	AttachmentsRepository filesRepo;
+	AttachmentRepository filesRepo;
 
 	@Override
-	public List<Attachments> list() {
+	public List<Attachment> list() {
 		return filesRepo.findAll();
 	}
 
@@ -34,7 +34,7 @@ public class AttachmentsServiceImpl implements AttachmentsService {
 	}
 
 	@Override
-	public Attachments updalod(Attachments file) {
+	public Attachment updalod(Attachment file) {
 		copyFileToServer(file.getPath());
 		return filesRepo.save(file);
 	}

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Table(name = "teams")
 @Entity
-public class Teams {
+public class Team {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
@@ -21,14 +21,14 @@ public class Teams {
 	
 	private List<User> user;
 	
-	@ManyToOne(targetEntity=Projects.class)
-	private Projects currentProject;
+	@ManyToOne(targetEntity=Project.class)
+	private Project currentProject;
 
-	public Teams() {
+	public Team() {
 		super();
 	}
 
-	public Teams(String name, Projects currentProject) {
+	public Team(String name, Project currentProject) {
 		super();
 		this.name = name;
 		this.currentProject = currentProject;
@@ -58,11 +58,11 @@ public class Teams {
 		this.user = user;
 	}
 
-	public Projects getCurrentProject() {
+	public Project getCurrentProject() {
 		return currentProject;
 	}
 
-	public void setCurrentProject(Projects currentProject) {
+	public void setCurrentProject(Project currentProject) {
 		this.currentProject = currentProject;
 	}
 

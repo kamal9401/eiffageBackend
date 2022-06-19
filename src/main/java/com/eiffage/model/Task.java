@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import com.eiffage.model.enumeration.Status;
 
 @Entity
-public class Tasks {
+public class Task {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -28,17 +28,17 @@ public class Tasks {
 	@ManyToOne(targetEntity=User.class)
 	private User reporter;
 
-	@ManyToOne(targetEntity=Projects.class)
-	private Projects project;
+	@ManyToOne(targetEntity=Project.class)
+	private Project project;
 
 	@OneToMany
-	private List<Comments> comments;
+	private List<Comment> comment;
 
 	@OneToMany
-	private List<Attachments> attachments;
+	private List<Attachment> attachment;
 
-	public Tasks(String title, String taskNumber, String description, Status status, User assignTo,
-			User reporter, Projects project) {
+	public Task(String title, String taskNumber, String description, Status status, User assignTo,
+			User reporter, Project project) {
 		super();
 		this.title = title;
 		this.taskNumber = taskNumber;
@@ -49,7 +49,7 @@ public class Tasks {
 		this.project = project;
 	}
 
-	public Tasks() {
+	public Task() {
 		super();
 	}
 
@@ -109,26 +109,26 @@ public class Tasks {
 		this.reporter = reporter;
 	}
 
-	public List<Comments> getComments() {
-		return comments;
+	public List<Comment> getComments() {
+		return comment;
 	}
 
-	public void setComments(List<Comments> comments) {
-		this.comments = comments;
+	public void setComments(List<Comment> comment) {
+		this.comment = comment;
 	}
 
-	public List<Attachments> getAttachments() {
-		return attachments;
+	public List<Attachment> getAttachments() {
+		return attachment;
 	}
 
-	public void setAttachments(List<Attachments> attachments) {
-		this.attachments = attachments;
+	public void setAttachments(List<Attachment> attachment) {
+		this.attachment = attachment;
 	}
 
 	@Override
 	public String toString() {
 		return "Tasks [id=" + id + ", title=" + title + ", taskNumber=" + taskNumber + ", description=" + description
-				+ ", status=" + status + ", assignTo=" + assignTo + ", reporter=" + reporter + ", comments=" + comments
-				+ ", attachments=" + attachments + ", project="+project+"]";
+				+ ", status=" + status + ", assignTo=" + assignTo + ", reporter=" + reporter + ", comments=" + comment
+				+ ", attachments=" + attachment + ", project="+project+"]";
 	}
 }

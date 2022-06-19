@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eiffage.model.Attachments;
+import com.eiffage.model.Attachment;
 import com.eiffage.model.enumeration.Constante;
-import com.eiffage.service.AttachmentsService;
+import com.eiffage.service.AttachmentService;
 
 @CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
-public class AttachmentsController implements AttachmentsService {
+public class AttachmentController implements AttachmentService {
 
-	AttachmentsService service;
+	AttachmentService service;
 
-	public AttachmentsController(AttachmentsService service) {
+	public AttachmentController(AttachmentService service) {
 		this.service = service;
 	}
 
 	@GetMapping("/attachments")
-	public List<Attachments> list() {
+	public List<Attachment> list() {
 		return service.list();
 	}
 
@@ -33,7 +33,7 @@ public class AttachmentsController implements AttachmentsService {
 	}
 
 	@PostMapping("/attachments")
-	public Attachments updalod(Attachments file) {
+	public Attachment updalod(Attachment file) {
 		return service.updalod(file);
 	}
 	

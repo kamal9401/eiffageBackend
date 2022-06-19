@@ -3,7 +3,7 @@ package com.eiffage.service.registration;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.eiffage.service.UsersService;
+import com.eiffage.service.UserService;
 import com.eiffage.service.email.EmailSender;
 
 
@@ -11,7 +11,7 @@ import com.eiffage.service.email.EmailSender;
 @AllArgsConstructor
 public class RegistrationService {
 
-    private final UsersService appUserService;
+    private final UserService appUserService;
     private final EmailValidator emailValidator;
     private final EmailSender emailSender;
 

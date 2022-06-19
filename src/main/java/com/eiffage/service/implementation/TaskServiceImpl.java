@@ -6,34 +6,34 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eiffage.model.Tasks;
+import com.eiffage.model.Task;
 import com.eiffage.model.enumeration.Status;
-import com.eiffage.repo.TasksRepository;
-import com.eiffage.service.TasksService;
+import com.eiffage.repo.TaskRepository;
+import com.eiffage.service.TaskService;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class TasksServiceImpl implements TasksService{
+public class TaskServiceImpl implements TaskService{
 
 	@Autowired
-	TasksRepository tasksRepo;
+	TaskRepository tasksRepo;
 
 	@Override
-	public List<Tasks> list() {
+	public List<Task> list() {
 		return tasksRepo.findAll();
 	}
 
 	@Override
-	public Tasks create(Tasks task) {
+	public Task create(Task task) {
 		return tasksRepo.save(task);
 	}
 
 	@Override
-	public Tasks update(Long id, Tasks task) {
-		Tasks myTask = tasksRepo.findById(id).get();
+	public Task update(Long id, Task task) {
+		Task myTask = tasksRepo.findById(id).get();
 		myTask.setAssignTo(task.getAssignTo());
 		myTask.setAttachments(task.getAttachments());
 		myTask.setComments(task.getComments());
@@ -47,7 +47,7 @@ public class TasksServiceImpl implements TasksService{
 	}
 
 	@Override
-	public Tasks  get(Long id) {
+	public Task  get(Long id) {
 		return tasksRepo.findById(id).get();
 	}
 
@@ -57,15 +57,15 @@ public class TasksServiceImpl implements TasksService{
 	}
 
 	@Override
-	public Tasks changeStatus(Long idTask, Status status) {
-		Tasks task  = tasksRepo.findById(idTask).get();
+	public Task changeStatus(Long idTask, Status status) {
+		Task task  = tasksRepo.findById(idTask).get();
 		task.setStatus(status);
 		return tasksRepo.save(task);
 	}
 
 	@Override
-	public Tasks assignTaskToUser(Long idTask, Long idUser) {
-		Tasks task  = tasksRepo.findById(idTask).get();
+	public Task assignTaskToUser(Long idTask, Long idUser) {
+		Task task  = tasksRepo.findById(idTask).get();
 		return tasksRepo.save(task);
 		
 	}

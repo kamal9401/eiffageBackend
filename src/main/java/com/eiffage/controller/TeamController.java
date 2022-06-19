@@ -11,32 +11,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eiffage.model.Teams;
+import com.eiffage.model.Team;
 import com.eiffage.model.enumeration.Constante;
-import com.eiffage.service.TeamsService;
+import com.eiffage.service.TeamService;
 
 @CrossOrigin(origins = Constante.ORIGIN_CROSS)
 @RestController
-public class TeamsController implements TeamsService{
+public class TeamController implements TeamService{
 
-	TeamsService service;
+	TeamService service;
 
-	public TeamsController(TeamsService service) {
+	public TeamController(TeamService service) {
 		this.service = service;
 	}
 	
 	@GetMapping("/teams")
-	public List<Teams> list(){
+	public List<Team> list(){
 		return service.list();
 	}
 	
 	@PostMapping("/teams")
-	public Teams create(@RequestBody Teams teams){
-		return service.create(teams);
+	public Team create(@RequestBody Team team){
+		return service.create(team);
 	}
 	
 	@PutMapping("/teams/{id}")
-	public Teams update(@PathVariable Long id, @RequestBody Teams team){
+	public Team update(@PathVariable Long id, @RequestBody Team team){
 		return service.update(id, team);
 	}
 
@@ -46,17 +46,17 @@ public class TeamsController implements TeamsService{
 	}
 
 	@GetMapping("/teams/{id}")
-	public Teams get(@PathVariable Long id) {
+	public Team get(@PathVariable Long id) {
 		return service.get(id);
 	}
 
 	@PutMapping("/teams/addUser/{idUser}/{idTeam}")
-	public Teams assignUserToTeam(Long idUser, Long idTeam) {
+	public Team assignUserToTeam(Long idUser, Long idTeam) {
 		return service.assignUserToTeam(idUser, idTeam);
 	}
 
 	@PutMapping("/teams/removeUser/{idUser}/{idTeam}")
-	public Teams removeUserFromTeam(Long idUser, Long idTeam) {
+	public Team removeUserFromTeam(Long idUser, Long idTeam) {
 		return service.removeUserFromTeam(idUser, idTeam);
 	}
 
