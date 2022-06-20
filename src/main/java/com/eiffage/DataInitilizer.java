@@ -64,7 +64,7 @@ public class DataInitilizer {
 			User user = new User("user"+i+"@email.com","firstName "+i,
 					"lastName "+i,"2020-02-"+(i<10?"0"+i:i), "CIN "+i,encodedPassword, "Photo "+i,
 							"Phone "+i, true, Status.ONLINE,true);
-			user.setAuthority(createAuthority(roles[i%4],roles[i%4]+ " roles"));
+			user.setAuthority(createAuthority(roles[i % 4],roles[i % 4]+ " roles"));
 			users.add(user);
 			userRepository.save(user);
 		}}
@@ -80,7 +80,7 @@ public class DataInitilizer {
 		teams = teamRepository.findAll();
 		if(teams.isEmpty()) {
 		for(int i=0;i<10;i++) {
-			Team team = new Team("Team "+i, projects.get(i));
+			Team team = new Team("Team "+i, projects.get(i % projects.size()));
 			teams.add(team);
 			teamRepository.save(team);
 			//users.get(i).setTeam(team);
@@ -93,7 +93,10 @@ public class DataInitilizer {
 		if(tasks.isEmpty()) {
 			for(int i=0;i<10;i++) {
 				Task task = new Task("title "+i, "TaskNumber "+i, "Description "+i, 
-						Status.BACKLOG, users.get(i), users.get(i),projects.get(i));
+						Status.BACKLOG, 
+						users.get(i % users.size()), 
+						users.get(i % users.size()),
+						projects.get(i % projects.size()));
 				
 				tasks.add(task);
 				taskRepository.save(task);
@@ -107,7 +110,7 @@ public class DataInitilizer {
 		if(projects.isEmpty()) {
 		for(int i=0;i<10;i++) {
 			Project project = new Project("description "+i, "Title "+i, LocalDateTime.of(2022, 4,(i+1),2,0,0), 
-						Status.ACTIVE, users.get(i));
+						Status.ACTIVE, users.get(i % users.size()));
 			projects.add(project);
 			projectRepository.save(project);
 		}		
@@ -118,7 +121,8 @@ public class DataInitilizer {
 		comments = commentRepository.findAll();
 		if(comments.isEmpty()) {
 			for(int i=0;i<10;i++) {
-				Comment comment = new Comment("message "+i, users.get(i), LocalDateTime.of(2022, 4, (i+1),10,10), tasks.get(i));
+				Comment comment = new Comment("message "+i, users.get(i % users.size()), 
+						LocalDateTime.of(2022, 4, (i+1),10,10), tasks.get(i % tasks.size()));
 				comments.add(comment);
 				commentRepository.save(comment);
 			}		
@@ -129,7 +133,7 @@ public class DataInitilizer {
 		attachments = attachmentRepository.findAll();
 		if(attachments.isEmpty()) {
 			for(int i=0;i<10;i++) {
-				Attachment attachment = new Attachment(tasks.get(i),users.get(i),"Title "+i, "Path "+i, "Icon "+i);
+				Attachment attachment = new Attachment(tasks.get(i % tasks.size()),users.get(i % users.size()),"Title "+i, "Path "+i, "Icon "+i);
 				attachments.add(attachment);
 				attachmentRepository.save(attachment);
 			}		

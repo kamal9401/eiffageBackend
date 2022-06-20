@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class EiffageAppApplication {
-
 	@Autowired
 	public static void main(String[] args) {
 		ApplicationContext ctx= SpringApplication.run(EiffageAppApplication.class, args);
