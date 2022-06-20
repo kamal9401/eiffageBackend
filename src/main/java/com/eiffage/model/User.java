@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 
@@ -21,9 +19,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.eiffage.model.enumeration.Role;
 import com.eiffage.model.enumeration.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
@@ -81,7 +76,7 @@ public class User implements UserDetails {
 
 	public User(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
 			String birthday, @NotEmpty(message = "email cannot empty or null") String cin, String password,
-			String photo, String phone, boolean activated, Status status, Role role,boolean enabled) {
+			String photo, String phone, boolean activated, Status status, boolean enabled) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -93,7 +88,6 @@ public class User implements UserDetails {
 		this.phone = phone;
 		this.activated = activated;
 		this.status = status;
-		this.role = role;
 		this.enabled=enabled;
 	}
 

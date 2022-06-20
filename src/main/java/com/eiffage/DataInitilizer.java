@@ -55,7 +55,7 @@ public class DataInitilizer {
 	}
 	
 	private void UsersInitilizer() {
-		
+		String [] roles = new String[] {"ADMIN","OUVRIER","CHEF_CHANTIER","CHEF_EQUIPE", "CONDUCTEUR_TRAVAUX"};
 		users = userRepository.findAll();
 		if(users.isEmpty()) {
 		for(int i=0;i<10;i++) {
@@ -63,10 +63,17 @@ public class DataInitilizer {
 		                .encode("123456"+i);
 			User user = new User("user"+i+"@email.com","firstName "+i,
 					"lastName "+i,"2020-02-"+(i<10?"0"+i:i), "CIN "+i,encodedPassword, "Photo "+i,
-							"Phone "+i, true, Status.ONLINE,role[i%4],true);
+							"Phone "+i, true, Status.ONLINE,true);
+			user.setAuthority(createAuthority(roles[i%4],roles[i%4]+ " roles"));
 			users.add(user);
 			userRepository.save(user);
 		}}
+	}
+	private Authority createAuthority(String roleCode,String roleDescription) {
+		Authority authority=new Authority();
+		authority.setRoleCode(roleCode);
+		authority.setRoleDescription(roleDescription);
+		return authority;
 	}
 
 	private void TeamsInitilizer() {
