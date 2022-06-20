@@ -48,10 +48,8 @@ public class UserService {
 	public User update(Long id, User user) {
 		User myUser = usersRepo.findById(id).get();
 		myUser.setActivated(user.isActivated());
-		myUser.setAttachments(user.getAttachments());
 		myUser.setBirthday(user.getBirthday());
 		myUser.setCin(user.getCin());
-		myUser.setComments(user.getComments());
 		myUser.setEmail(user.getEmail());
 		myUser.setFirstName(user.getFirstName());
 		myUser.setLastName(user.getLastName());
@@ -59,8 +57,6 @@ public class UserService {
 		myUser.setPhoto(user.getPhoto());
 		myUser.setRole(user.getRole());
 		myUser.setStatus(user.getStatus());
-		myUser.setTasksAssigned(user.getTasksAssigned());
-		myUser.setTasksReported(user.getTasksReported());
 		return usersRepo.save(myUser);
 
 	}

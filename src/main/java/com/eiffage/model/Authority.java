@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 
 @SuppressWarnings("serial")
-@Table(name = "AUTH_AUTHORITY")
+@Table(name = "Role")
 @Entity
 public class Authority implements GrantedAuthority {
 	

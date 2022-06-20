@@ -31,23 +31,20 @@ public class EiffageAppApplication {
 	@PostConstruct
 	protected void init() {
 		
-		List<Authority> authorityList=new ArrayList<>();
-		
-		authorityList.add(createAuthority("USER","User role"));
-		//authorityList.add(createAuthority("ADMIN","Admin role"));
+		Authority  authority = createAuthority("ADMIN","Admin role");  
 		
 		User user=new User();
 		
-		user.setUserName("achtech");
-		user.setFirstName("Pardeep");
-		user.setLastName("K");
-		user.setEmail("user0@email.com");
+		user.setUserName("KNINA");
+		user.setFirstName("Kamal");
+		user.setLastName("Knina");
+		user.setEmail("kms@eiffage.com");
 		user.setCin("CIN0");
 		user.setLastName("K");
 		
 		user.setPassword(passwordEncoder.encode("1234560"));
 		user.setEnabled(true);
-		user.setAuthorities(authorityList);
+		user.setAuthority(authority);
 		userDetailsRepository.save(user);
 	}
 	

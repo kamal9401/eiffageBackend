@@ -39,9 +39,6 @@ public class ProjectServiceImpl implements ProjectService{
 		myProject.setChefChantier(project.getChefChantier());
 		myProject.setDescription(project.getDescription());
 		myProject.setStatus(project.getStatus());
-		myProject.setTasks(project.getTasks());
-		myProject.setTeams(project.getTeams());
-		myProject.setTeams(project.getTeams());
 		myProject.setTimeStamp(project.getTimeStamp());
 		myProject.setTitle(project.getTitle());
 		

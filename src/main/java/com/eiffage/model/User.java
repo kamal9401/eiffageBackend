@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -23,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
-@Table(name = "AUTH_USER_DETAILS")
+
 @Entity
 public class User implements UserDetails {
 	/**
@@ -43,7 +45,6 @@ public class User implements UserDetails {
 	@Column(name = "USER_KEY")
 	private String password;
 	
-	@Column(unique = true)
 	@NotEmpty(message = "email cannot empty or null")
 	@JsonIgnore
 	private String email;
@@ -53,7 +54,6 @@ public class User implements UserDetails {
 	private String lastName;
 	@JsonIgnore
 	private String birthday;
-	@Column(unique = true)
 	@NotEmpty(message = "email cannot empty or null")
 	@JsonIgnore
 	private String cin;
@@ -72,30 +72,12 @@ public class User implements UserDetails {
 	@JsonIgnore
 	private Role role;
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinTable(name = "AUTH_USER_AUTHORITY", joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName ="id"))
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Authority authority;
+	@Transient
 	private List<Authority> authorities;
 	
-	@OneToMany
-	@JsonIgnore
-	private List<Task> tasksReported;
-
-	@OneToMany
-	@JsonIgnore
-	private List<Task> tasksAssigned;
-
-	@OneToMany
-	@JsonIgnore
-	private List<Comment> comment;
-
 	
-	@OneToMany
-	@JsonIgnore
-	private List<Attachment> attachment;
-
-	@OneToMany
-	@JsonIgnore
-	private List<Project> project;
 
 	public User(@NotEmpty(message = "email cannot empty or null") String email, String firstName, String lastName,
 			String birthday, @NotEmpty(message = "email cannot empty or null") String cin, String password,
@@ -131,7 +113,7 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
+		authorities.add(authority);
 		return authorities;
 	}
 	
@@ -232,44 +214,15 @@ public class User implements UserDetails {
 		this.role = role;
 	}
 
-	public List<Task> getTasksReported() {
-		return tasksReported;
+
+	
+
+	public Authority getAuthority() {
+		return authority;
 	}
 
-	public void setTasksReported(List<Task> tasksReported) {
-		this.tasksReported = tasksReported;
-	}
-
-	public List<Task> getTasksAssigned() {
-		return tasksAssigned;
-	}
-
-	public void setTasksAssigned(List<Task> tasksAssigned) {
-		this.tasksAssigned = tasksAssigned;
-	}
-
-	public List<Comment> getComments() {
-		return comment;
-	}
-
-	public void setComments(List<Comment> comment) {
-		this.comment = comment;
-	}
-
-	public List<Attachment> getAttachments() {
-		return attachment;
-	}
-
-	public void setAttachments(List<Attachment> attachment) {
-		this.attachment = attachment;
-	}
-
-	public List<Project> getProjects() {
-		return project;
-	}
-
-	public void setProjects(List<Project> project) {
-		this.project = project;
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
 	}
 
 	@Override
@@ -277,8 +230,7 @@ public class User implements UserDetails {
 		return "Users [idUser=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", birthday=" + birthday + ", cin=" + cin + ", password=" + password + ", photo=" + photo + ", phone="
 				+ phone + ", activated=" + activated + ", status=" + status + ", role=" + role + ", tasksReported="
-				+ tasksReported + ", tasksAssigned=" + tasksAssigned + ", comments=" + comment + ", attachments="
-				+ attachment + ", projects=" + project + "]";
+				 +"]";
 	}
 
 	@Override

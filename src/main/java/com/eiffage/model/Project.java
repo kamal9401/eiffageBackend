@@ -20,11 +20,7 @@ public class Project {
 	private LocalDateTime timeStamp;
 	private Status status;
 
-	@OneToMany
-	private List<Team> team;
-
-	@OneToMany
-	private List<Task> task;
+	
 
 	@ManyToOne(targetEntity=User.class)
 	private User chefChantier;
@@ -83,21 +79,7 @@ public class Project {
 		this.status = status;
 	}
 
-	public List<Team> getTeams() {
-		return team;
-	}
-
-	public void setTeams(List<Team> team) {
-		this.team = team;
-	}
-
-	public List<Task> getTasks() {
-		return task;
-	}
-
-	public void setTasks(List<Task> task) {
-		this.task = task;
-	}
+	
 
 	public User getChefChantier() {
 		return chefChantier;
@@ -110,7 +92,7 @@ public class Project {
 	@Override
 	public String toString() {
 		return "Projects [id=" + id + ", description=" + description + ", title=" + title + ", timeStamp=" + timeStamp
-				+ ", status=" + status + ", teams=" + team + ", tasks=" + task + ", chefChantier=" + chefChantier
+				+ ", status=" + status + ", chefChantier=" + chefChantier
 				+ "]";
 	}
 	

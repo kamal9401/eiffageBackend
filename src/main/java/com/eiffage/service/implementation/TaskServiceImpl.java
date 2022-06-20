@@ -35,8 +35,6 @@ public class TaskServiceImpl implements TaskService{
 	public Task update(Long id, Task task) {
 		Task myTask = tasksRepo.findById(id).get();
 		myTask.setAssignTo(task.getAssignTo());
-		myTask.setAttachments(task.getAttachments());
-		myTask.setComments(task.getComments());
 		myTask.setDescription(task.getDescription());
 		myTask.setReporter(task.getReporter());
 		myTask.setStatus(task.getStatus());

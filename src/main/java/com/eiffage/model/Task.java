@@ -31,11 +31,7 @@ public class Task {
 	@ManyToOne(targetEntity=Project.class)
 	private Project project;
 
-	@OneToMany
-	private List<Comment> comment;
-
-	@OneToMany
-	private List<Attachment> attachment;
+	
 
 	public Task(String title, String taskNumber, String description, Status status, User assignTo,
 			User reporter, Project project) {
@@ -109,26 +105,11 @@ public class Task {
 		this.reporter = reporter;
 	}
 
-	public List<Comment> getComments() {
-		return comment;
-	}
-
-	public void setComments(List<Comment> comment) {
-		this.comment = comment;
-	}
-
-	public List<Attachment> getAttachments() {
-		return attachment;
-	}
-
-	public void setAttachments(List<Attachment> attachment) {
-		this.attachment = attachment;
-	}
 
 	@Override
 	public String toString() {
 		return "Tasks [id=" + id + ", title=" + title + ", taskNumber=" + taskNumber + ", description=" + description
-				+ ", status=" + status + ", assignTo=" + assignTo + ", reporter=" + reporter + ", comments=" + comment
-				+ ", attachments=" + attachment + ", project="+project+"]";
+				+ ", status=" + status + ", assignTo=" + assignTo + ", reporter=" + reporter 
+				+ ", project="+project+"]";
 	}
 }
