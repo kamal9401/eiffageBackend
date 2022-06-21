@@ -70,7 +70,9 @@ public class CommentServiceTest {
 	    public void removeToDo() {
 	        Comment comment = new Comment("msg1",user,LocalDateTime.now(),task);
 	        comment.setId(1L);
+	        service.create(comment);
 	        service.delete(1L);
-	        verify(repository, times(1)).delete(comment);
+	        assertEquals(false, repository.existsById(comment.getId()));
+	        //verify(repository, times(1)).delete(comment);
 	    }
 }

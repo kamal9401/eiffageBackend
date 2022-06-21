@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public Comment get(Long id) {
-		return repo.getById(id);
+		return repo.findById(id).get();
 	}
 
 	@Override
